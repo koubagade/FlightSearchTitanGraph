@@ -18,13 +18,13 @@ public class PopulateDB {
         TitanGraph g = TitanFactory.open(conf);
 
         // Uncomment the following if your graph is already populated and you want to clear it out first.
-        // g.close();
-        // TitanCleanup.clear(g);
-        // g = TitanFactory.open(conf);
+        g.close();
+        TitanCleanup.clear(g);
+        g = TitanFactory.open(conf);
 
         // Interested in the source?
         // https://github.com/thinkaurelius/titan/blob/titan05/titan-core/src/main/java/com/thinkaurelius/titan/example/GraphOfTheGodsFactory.java
-        GraphOfTheGodsFactory.load(g);
+        AirportsAndFlights.load(g);
         g.close();
         System.out.println("Success.");
     }
