@@ -31,18 +31,18 @@ public class TitanWebService {
     }
 
     @GET
-    @Path("/listVertices")
+    @Path("/listEdges")
     @Produces(MediaType.TEXT_PLAIN)
-    public String listVertices(@Context UriInfo info) throws JSONException {
-        String res = javaOp.listVertices();
+    public String listEdges(@Context UriInfo info) throws JSONException {
+        String res = javaOp.listEdges().toString();
         return "\"" + res + "\"";
     }
 
     @GET
-    @Path("/plutosBrothers")
+    @Path("/listVertices")
     @Produces(MediaType.TEXT_PLAIN)
-    public String pipeline(@Context UriInfo info) throws JSONException {
-        String res = groovyOp.getPlutosBrothers();
+    public String listVertices(@Context UriInfo info) throws JSONException {
+        String res = javaOp.listVertices().toString();
         return "\"" + res + "\"";
     }
 }
