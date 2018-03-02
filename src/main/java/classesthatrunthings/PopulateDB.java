@@ -3,7 +3,7 @@ package classesthatrunthings;
 import com.thinkaurelius.titan.core.TitanFactory;
 import com.thinkaurelius.titan.core.TitanGraph;
 import com.thinkaurelius.titan.core.util.TitanCleanup;
-import com.thinkaurelius.titan.example.GraphOfTheGodsFactory;
+import com.thinkaurelius.titan.webexample.AirportsAndFlights;
 import com.thinkaurelius.titan.webexample.TitanGraphFactory;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.PropertiesConfiguration;
