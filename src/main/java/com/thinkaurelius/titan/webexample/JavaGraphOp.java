@@ -1,19 +1,26 @@
 package com.thinkaurelius.titan.webexample;
 
+import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
-import org.json.simple.JSONObject;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 @Component
 public class JavaGraphOp {
     // Autowired via setter. I leave this as a blueprints.Graph unless I have to do Titan specific stuff.
+    Logger logger = LoggerFactory.getLogger(JavaGraphOp.class);
+
     private Graph g;
 
     @Autowired
@@ -22,16 +29,16 @@ public class JavaGraphOp {
         this.g = gf.getGraph();
     }
 
-    public List<JSONObject> listVertices() {
-        List<JSONObject> airports = new ArrayList<JSONObject>();
+    public List<HashMap<String, String>> listVertices() {
+        List<HashMap<String, String>> airports = new ArrayList<HashMap<String, String>>();
         Iterator<Vertex> itty = g.vertices();
         Vertex v;
-        JSONObject jsonObject;
+        HashMap<String, String> jsonObject = new HashMap<String, String>();
 
         while (itty.hasNext()) {
             v = itty.next();
 
-            jsonObject = new JSONObject();
+            jsonObject.clear();
 
             jsonObject.put("id",v.property("id").value().toString());
             jsonObject.put("name",v.property("name").value().toString());
@@ -46,30 +53,63 @@ public class JavaGraphOp {
         return airports;
     }
 
-    public List<JSONObject> listEdges() {
-        List<JSONObject> flights = new ArrayList<JSONObject>();
+    public List<HashMap<String, String>> listEdges() {
+        List<HashMap<String, String>> flights = new ArrayList<HashMap<String, String>>();
         Iterator<Edge> itty1 = g.edges();
         Edge e;
 
-        JSONObject jsonObject;
+        HashMap<String, String> jsonObject = new HashMap<String, String>();
 
         while (itty1.hasNext()) {
             e = itty1.next();
 
-            jsonObject = new JSONObject();
+            jsonObject.clear();
 
-            jsonObject.put("fid",e.property("fid").value());
-            jsonObject.put("fname",e.property("fname").value());
-            jsonObject.put("arrTime",e.property("arrTime").value());
-            jsonObject.put("depTime",e.property("depTime").value());
-            jsonObject.put("arrDate",e.property("arrDate").value());
-            jsonObject.put("depDate",e.property("depDate").value());
-            jsonObject.put("company",e.property("company").value());
-            jsonObject.put("source",e.property("source").value());
-            jsonObject.put("destination",e.property("destination").value());
+            jsonObject.put("fid",e.property("fid").value().toString());
+            jsonObject.put("fname",e.property("fname").value().toString());
+            jsonObject.put("arrTime",e.property("arrTime").value().toString());
+            jsonObject.put("depTime",e.property("depTime").value().toString());
+            jsonObject.put("arrDate",e.property("arrDate").value().toString());
+            jsonObject.put("depDate",e.property("depDate").value().toString());
+            jsonObject.put("company",e.property("company").value().toString());
+            jsonObject.put("source",e.property("source").value().toString());
+            jsonObject.put("destination",e.property("destination").value().toString());
 
             flights.add(jsonObject);
         }
         return flights;
+    }
+
+    public HashMap<String, String> getAirport(String airportName) {
+
+        HashMap<String, String> airportProperties = new HashMap<>();
+        logger.info("Checkpoint 1 {}", airportName);
+        List<Vertex> vList = new ArrayList<Vertex> ();
+        Vertex v = null;
+        try {
+            GraphTraversalSource graph = g.traversal();
+            vList = graph.V().toList();
+            logger.info("Number of vertices: {}", vList.size());
+            for(Vertex e: vList){
+                logger.info("{} -  {}", e.property("id"), e.property("name"));
+                if (e.property("name").value().equals(airportName)){
+                    airportProperties.put("id",e.property("id").value().toString());
+                    airportProperties.put("name",e.property("name").value().toString());
+                    airportProperties.put("city",e.property("city").value().toString());
+                    airportProperties.put("state",e.property("state").value().toString());
+                    airportProperties.put("country",e.property("country").value().toString());
+                    airportProperties.put("place",e.property("place").value().toString());
+                    break;
+                }
+
+            }
+        } catch (Exception e){
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+
+        logger.info("Checkpoint 2");
+        return airportProperties;
+
     }
 }

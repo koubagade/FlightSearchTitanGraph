@@ -1,16 +1,21 @@
 package com.thinkaurelius.titan.webexample;
 
 import org.codehaus.jettison.json.JSONException;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.print.attribute.standard.Media;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import java.util.HashMap;
+
+import org.slf4j.Logger;
 
 /**
  * This class handles the HTTP requests.
@@ -18,6 +23,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("/")
 @Component
 public class TitanWebService {
+    Logger logger = LoggerFactory.getLogger(TitanWebService.class);
 
     @Autowired
     GroovyGraphOp groovyOp;
@@ -44,5 +50,15 @@ public class TitanWebService {
     public String listVertices(@Context UriInfo info) throws JSONException {
         String res = javaOp.listVertices().toString();
         return "\"" + res + "\"";
+    }
+
+    @GET
+    @Path("/getAirport")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getAirport(@QueryParam(value = "airport") String airportName) {
+        logger.info("Received airport name {}", airportName);
+        HashMap<String, String> result = javaOp.getAirport(airportName);
+        logger.info("Returning airport properties {}", result.toString());
+        return "\"" + result.toString() + "\"";
     }
 }
