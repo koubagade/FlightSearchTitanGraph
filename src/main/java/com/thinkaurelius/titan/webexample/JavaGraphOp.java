@@ -1,10 +1,12 @@
 package com.thinkaurelius.titan.webexample;
 
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
+import org.apache.tinkerpop.gremlin.structure.Direction;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 
+import org.json.simple.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -38,7 +40,7 @@ public class JavaGraphOp {
         while (itty.hasNext()) {
             v = itty.next();
 
-            jsonObject.clear();
+            jsonObject = new HashMap<>();
 
             jsonObject.put("id",v.property("id").value().toString());
             jsonObject.put("name",v.property("name").value().toString());
@@ -63,7 +65,7 @@ public class JavaGraphOp {
         while (itty1.hasNext()) {
             e = itty1.next();
 
-            jsonObject.clear();
+            jsonObject = new HashMap<>();
 
             jsonObject.put("fid",e.property("fid").value().toString());
             jsonObject.put("fname",e.property("fname").value().toString());
@@ -80,10 +82,10 @@ public class JavaGraphOp {
         return flights;
     }
 
-    public HashMap<String, String> getAirport(String airportName) {
+    public HashMap<String, String> getAirport(String sourceAirport) {
 
         HashMap<String, String> airportProperties = new HashMap<>();
-        logger.info("Checkpoint 1 {}", airportName);
+        logger.info("Checkpoint 1 {}", sourceAirport);
         List<Vertex> vList = new ArrayList<Vertex> ();
         Vertex v = null;
         try {
@@ -92,7 +94,7 @@ public class JavaGraphOp {
             logger.info("Number of vertices: {}", vList.size());
             for(Vertex e: vList){
                 logger.info("{} -  {}", e.property("id"), e.property("name"));
-                if (e.property("name").value().equals(airportName)){
+                if (e.property("name").value().equals(sourceAirport)){
                     airportProperties.put("id",e.property("id").value().toString());
                     airportProperties.put("name",e.property("name").value().toString());
                     airportProperties.put("city",e.property("city").value().toString());
@@ -110,6 +112,86 @@ public class JavaGraphOp {
 
         logger.info("Checkpoint 2");
         return airportProperties;
+    }
 
+    public HashMap<String, String> getFlights(String source, String destination) {
+        logger.info("Checkpoint 1 {}", source);
+        logger.info("Checkpoint 1 {}", destination);
+
+        HashMap<String, String> availableFlights = new HashMap<>();
+        List<Vertex> vList = new ArrayList<Vertex> ();
+        Vertex v = null;
+        List<Edge> edgeList = null;
+
+        try {
+            GraphTraversalSource graph = g.traversal();
+            vList = graph.V().toList();
+            logger.info("Number of vertices: {}", vList.size());
+            for(Vertex v1: vList){
+                if (v1.property("name").value().equals(source)){
+                    edgeList = graph.V(v1).outE().toList();
+                    for (Edge e: edgeList) {
+                        logger.info("{} -  {}", e.property("fid"), e.property("fname"));
+                        if (e.inVertex().property("name").value().equals(destination)) {
+                            availableFlights.put("fid",e.property("fid").value().toString());
+                            availableFlights.put("fname",e.property("fname").value().toString());
+                            availableFlights.put("arrTime",e.property("arrTime").value().toString());
+                            availableFlights.put("depTime",e.property("depTime").value().toString());
+                            availableFlights.put("arrDate",e.property("arrDate").value().toString());
+                            availableFlights.put("depDate",e.property("depDate").value().toString());
+                            availableFlights.put("company",e.property("company").value().toString());
+                        }
+                    }
+                    break;
+                }
+
+            }
+        } catch (Exception e){
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+        return availableFlights;
+    }
+
+    public List<HashMap<String, String>> getAllFlights(String source, String destination) {
+        logger.info("Checkpoint 1 {}", source);
+        logger.info("Checkpoint 1 {}", destination);
+
+        List<HashMap<String, String>> availableFlights = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> temp;
+        List<Vertex> vList = new ArrayList<Vertex> ();
+        Vertex v = null;
+        List<Edge> edgeList = null;
+
+        try {
+            GraphTraversalSource graph = g.traversal();
+            vList = graph.V().toList();
+            logger.info("Number of vertices: {}", vList.size());
+            for(Vertex v1: vList){
+                if (v1.property("name").value().equals(source)){
+                    edgeList = graph.V(v1).outE().toList();
+                    for (Edge e: edgeList) {
+                        logger.info("{} -  {}", e.property("fid"), e.property("fname"));
+                        if (e.inVertex().property("name").value().equals(destination)) {
+
+                            temp = new HashMap<>();
+                            temp.put("fid",e.property("fid").value().toString());
+                            temp.put("fname",e.property("fname").value().toString());
+                            temp.put("arrTime",e.property("arrTime").value().toString());
+                            temp.put("depTime",e.property("depTime").value().toString());
+                            temp.put("arrDate",e.property("arrDate").value().toString());
+                            temp.put("depDate",e.property("depDate").value().toString());
+                            temp.put("company",e.property("company").value().toString());
+                            availableFlights.add(temp);
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e){
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+        return availableFlights;
     }
 }
