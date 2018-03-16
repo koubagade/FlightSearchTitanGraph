@@ -73,7 +73,10 @@ public class AirportsAndFlights {
         delhi.addEdge("flight",pune,"fid","016","fname","DtoP","arrTime",Time.valueOf("22:00:00"),"depTime",Time.valueOf("00:30:00"),"arrDate",LocalDate.parse("2018-04-15"),"depDate",LocalDate.parse("2018-04-15"),"company","Air India","source","Delhi","destination","Pune");
         bangalore.addEdge("flight",delhi,"fid","017","fname","BtoD","arrTime",Time.valueOf("20:30:25"),"depTime",Time.valueOf("23:30:45"),"arrDate",LocalDate.parse("2018-05-17"),"depDate",LocalDate.parse("2018-05-17"),"company","Jet Airways","source","Bangalore","destination","Delhi");
         chennai.addEdge("flight",hyderabad,"fid","018","fname","CtoH","arrTime",Time.valueOf("18:00:35"),"depTime",Time.valueOf("22:00:00"),"arrDate",LocalDate.parse("2018-10-19"),"depDate",LocalDate.parse("2018-10-19"),"company","Air India","source","Chennai","destination","Hyderabad");
-
+        chennai.addEdge("flight",hyderabad,"fid","019","fname","CtoH","arrTime",Time.valueOf("13:20:35"),"depTime",Time.valueOf("18:00:00"),"arrDate",LocalDate.parse("2019-11-25"),"depDate",LocalDate.parse("2019-11-25"),"company","Jet Airways","source","Chennai","destination","Hyderabad");
+        chennai.addEdge("flight",hyderabad,"fid","020","fname","CtoH","arrTime",Time.valueOf("05:00:35"),"depTime",Time.valueOf("06:30:05"),"arrDate",LocalDate.parse("2019-01-01"),"depDate",LocalDate.parse("2019-01-01"),"company","GoAir","source","Chennai","destination","Hyderabad");
+        chennai.addEdge("flight",hyderabad,"fid","021","fname","CtoH","arrTime",Time.valueOf("08:00:35"),"depTime",Time.valueOf("10:20:00"),"arrDate",LocalDate.parse("2019-10-05"),"depDate",LocalDate.parse("2019-10-05"),"company","SpiceJet","source","Chennai","destination","Hyderabad");
+        chennai.addEdge("flight",hyderabad,"fid","022","fname","CtoH","arrTime",Time.valueOf("12:00:35"),"depTime",Time.valueOf("14:35:00"),"arrDate",LocalDate.parse("2018-10-20"),"depDate",LocalDate.parse("2018-10-21"),"company","Air India","source","Chennai","destination","Hyderabad");
         tx.commit();
     }
 }
