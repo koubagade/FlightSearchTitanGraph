@@ -31,16 +31,16 @@ public class JavaGraphOp {
         this.g = gf.getGraph();
     }
 
-    public List<HashMap<String, String>> listVertices() {
-        List<HashMap<String, String>> airports = new ArrayList<HashMap<String, String>>();
+    public List<JSONObject> listVertices() {
+        List<JSONObject> airports = new ArrayList<JSONObject>();
         Iterator<Vertex> itty = g.vertices();
         Vertex v;
-        HashMap<String, String> jsonObject = new HashMap<String, String>();
+        JSONObject jsonObject = new JSONObject();
 
         while (itty.hasNext()) {
             v = itty.next();
 
-            jsonObject = new HashMap<>();
+            jsonObject = new JSONObject();
 
             jsonObject.put("id",v.property("id").value().toString());
             jsonObject.put("name",v.property("name").value().toString());
@@ -55,17 +55,17 @@ public class JavaGraphOp {
         return airports;
     }
 
-    public List<HashMap<String, String>> listEdges() {
-        List<HashMap<String, String>> flights = new ArrayList<HashMap<String, String>>();
+    public List<JSONObject> listEdges() {
+        List<JSONObject> flights = new ArrayList<JSONObject>();
         Iterator<Edge> itty1 = g.edges();
         Edge e;
 
-        HashMap<String, String> jsonObject = new HashMap<String, String>();
+        JSONObject jsonObject = new JSONObject();
 
         while (itty1.hasNext()) {
             e = itty1.next();
 
-            jsonObject = new HashMap<>();
+            jsonObject = new JSONObject();
 
             jsonObject.put("fid",e.property("fid").value().toString());
             jsonObject.put("fname",e.property("fname").value().toString());
@@ -82,9 +82,9 @@ public class JavaGraphOp {
         return flights;
     }
 
-    public HashMap<String, String> getAirport(String sourceAirport) {
+    public JSONObject getAirport(String sourceAirport) {
 
-        HashMap<String, String> airportProperties = new HashMap<>();
+        JSONObject airportProperties = new JSONObject();
         logger.info("Checkpoint 1 {}", sourceAirport);
         List<Vertex> vList = new ArrayList<Vertex> ();
         Vertex v = null;
@@ -114,11 +114,11 @@ public class JavaGraphOp {
         return airportProperties;
     }
 
-    public HashMap<String, String> getFlights(String source, String destination) {
+    public JSONObject getFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 
-        HashMap<String, String> availableFlights = new HashMap<>();
+        JSONObject availableFlights = new JSONObject();
         List<Vertex> vList = new ArrayList<Vertex> ();
         Vertex v = null;
         List<Edge> edgeList = null;
@@ -153,12 +153,12 @@ public class JavaGraphOp {
         return availableFlights;
     }
 
-    public List<HashMap<String, String>> getAllFlights(String source, String destination) {
+    public List<JSONObject> getAllFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 
-        List<HashMap<String, String>> availableFlights = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> temp;
+        List<JSONObject> availableFlights = new ArrayList<JSONObject>();
+        JSONObject temp;
         List<Vertex> vList = new ArrayList<Vertex> ();
         Vertex v = null;
         List<Edge> edgeList = null;
@@ -174,7 +174,7 @@ public class JavaGraphOp {
                         logger.info("{} -  {}", e.property("fid"), e.property("fname"));
                         if (e.inVertex().property("name").value().equals(destination)) {
 
-                            temp = new HashMap<>();
+                            temp = new JSONObject();
                             temp.put("fid",e.property("fid").value().toString());
                             temp.put("fname",e.property("fname").value().toString());
                             temp.put("arrTime",e.property("arrTime").value().toString());
@@ -185,6 +185,7 @@ public class JavaGraphOp {
                             availableFlights.add(temp);
                         }
                     }
+
                     break;
                 }
             }
