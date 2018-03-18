@@ -15,6 +15,11 @@
         <input type="text" name="airport">
         <input type="submit" value="Submit">
     </form>
+    <form action="/rest/getAllFlights" method="get" onsubmit="returnTableFormat()">
+        Source : <input type="text" name="source"><br>
+        Destination : <input type="text" name="destination"><br>
+        <input type="submit" value="Submit">
+    </form>
     <script>
         function returnTableFormat(){
             var resultJSON = '{"fid":"13","fname":"CtoM","arrDate":"2018-02-25","depTime":"17:00:25","company":"SpiceJet","arrTime":"13:20:55","depDate":"2018-02-25"}';
