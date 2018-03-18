@@ -153,7 +153,7 @@ public class JavaGraphOp {
         return availableFlights;
     }
 
-    public List<JSONObject> getAllFlights(String source, String destination) {
+    public List<JSONObject> getMultipleDirectFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 

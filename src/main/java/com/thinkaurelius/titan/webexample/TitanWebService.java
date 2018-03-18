@@ -1,6 +1,7 @@
 package com.thinkaurelius.titan.webexample;
 
 import org.codehaus.jettison.json.JSONException;
+import org.json.simple.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -64,12 +65,22 @@ public class TitanWebService {
     }
 
     @GET
+    @Path("getFlights")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
+        logger.info("Received source airport name {}", source);
+        logger.info("Received source airport name {}", destination);
+        JSONObject result = javaOp.getFlights(source, destination);
+        return "\"" + result + "\"";
+    }
+
+    @GET
     @Path("getAllFlights")
     @Produces(MediaType.TEXT_PLAIN)
     public String getAllFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
         logger.info("Received source airport name {}", source);
         logger.info("Received source airport name {}", destination);
-        List result = javaOp.getAllFlights(source, destination);
+        List result = javaOp.getMultipleDirectFlights(source, destination);
         return "\"" + result + "\"";
     }
 }
