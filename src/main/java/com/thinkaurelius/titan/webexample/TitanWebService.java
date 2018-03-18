@@ -75,7 +75,7 @@ public class TitanWebService {
     }
 
     @GET
-    @Path("getAllFlights")
+    @Path("getMultipleDirectFlights")
     @Produces(MediaType.TEXT_PLAIN)
     public String getAllFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
         logger.info("Received source airport name {}", source);
