@@ -25,17 +25,17 @@
         Destination : <input type="text" name="destination"><br>
         <input type="submit" value="Submit">
     </form>
-    <script>
-        function returnTableFormat(){
-            var resultJSON = '{"fid":"13","fname":"CtoM","arrDate":"2018-02-25","depTime":"17:00:25","company":"SpiceJet","arrTime":"13:20:55","depDate":"2018-02-25"}';
-            document.write("<table border=1> <th>Key</th><th>Value</th>");
-            var data = JSON.parse(resultJSON);
+    <!--<script>-->
+        <!--function returnTableFormat(){-->
+            <!--var resultJSON = '{"fid":"13","fname":"CtoM","arrDate":"2018-02-25","depTime":"17:00:25","company":"SpiceJet","arrTime":"13:20:55","depDate":"2018-02-25"}';-->
+            <!--document.write("<table border=1> <th>Key</th><th>Value</th>");-->
+            <!--var data = JSON.parse(resultJSON);-->
 
-            for (var key in data)
-            {
-                document.write("<tr><td>"+key+"</td>"+"<td>"+data[key]+"</td></tr><br>");
-            }
-        }
-    </script>
+            <!--for (var key in data)-->
+            <!--{-->
+                <!--document.write("<tr><td>"+key+"</td>"+"<td>"+data[key]+"</td></tr><br>");-->
+            <!--}-->
+        <!--}-->
+    <!--</script>-->
 </body>
 </html>

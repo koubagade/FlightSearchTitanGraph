@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 
@@ -60,5 +61,15 @@ public class TitanWebService {
         HashMap<String, String> result = javaOp.getAirport(airportName);
         logger.info("Returning airport properties {}", result.toString());
         return "\"" + result.toString() + "\"";
+    }
+
+    @GET
+    @Path("getAllFlights")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getAllFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
+        logger.info("Received source airport name {}", source);
+        logger.info("Received source airport name {}", destination);
+        List result = javaOp.getAllFlights(source, destination);
+        return "\"" + result + "\"";
     }
 }
