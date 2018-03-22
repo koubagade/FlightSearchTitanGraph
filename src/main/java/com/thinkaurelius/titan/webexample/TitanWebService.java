@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class TitanWebService {
         return "\"" + res + "\"";
     }
 
+    //only for checking if it working or not
     @GET
     @Path("/getAirport")
     @Produces(MediaType.TEXT_PLAIN)
@@ -64,23 +66,66 @@ public class TitanWebService {
         return "\"" + result.toString() + "\"";
     }
 
+    //get single flight only for source and destination
     @GET
     @Path("getFlights")
     @Produces(MediaType.TEXT_PLAIN)
     public String getFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
         logger.info("Received source airport name {}", source);
-        logger.info("Received source airport name {}", destination);
+        logger.info("Received destination airport name {}", destination);
         JSONObject result = javaOp.getFlights(source, destination);
         return "\"" + result + "\"";
     }
 
+    //get multiple direct flights only for source and destination
     @GET
     @Path("getMultipleDirectFlights")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getAllFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
+    public String getMultipleDirectFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
         logger.info("Received source airport name {}", source);
         logger.info("Received source airport name {}", destination);
         List result = javaOp.getMultipleDirectFlights(source, destination);
-        return "\"" + result + "\"";
+        if (result.isEmpty()){
+            return "Not Found";
+        }
+        else{
+            return "\"" + result + "\"";
+        }
+    }
+
+    //get multiple flights according to source, destination, depDate, retDate
+    @GET
+    @Path("getFlightsWithDates")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFlightsWithDates(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination, @QueryParam(value = "depDate") String depDate, @QueryParam(value="retDate") String retDate) {
+        logger.info("Received source airport name {}", source);
+        logger.info("Received destination airport name {}", destination);
+        logger.info("Received depart date {}", depDate);
+        logger.info("Received return date {}", retDate);
+        List result = javaOp.getFlightsWithDates(source, destination, depDate, retDate);
+        if (result.isEmpty()){
+            return "Not Found";
+        }
+        else{
+            return "\"" + result + "\"";
+        }
+    }
+
+    //get flights having single stop
+    @GET
+    @Path("getFlightsHavingSingleStop")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFlightsHavingSingleStop(@QueryParam(value = "source") String source, @QueryParam(value = "stop") String stop, @QueryParam(value = "destination") String destination) {
+        logger.info("Received source airport name {}", source);
+        logger.info("Received stop airport name {}", stop);
+        logger.info("Received destination airport name {}", destination);
+
+        List result = javaOp.getFlightsHavingSingleStop(source, stop, destination);
+        if (result.isEmpty()){
+            return "Not Found";
+        }
+        else{
+            return "\"" + result + "\"";
+        }
     }
 }

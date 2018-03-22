@@ -11,20 +11,47 @@
 
     <a href="/rest/listEdges">All Edges by Name</a><br/>
     <a href="/rest/listVertices">All vertices by name</a><br/>
+    
     <!--<form action="/rest/getAirport" method="get">-->
         <!--<input type="text" name="airport">-->
         <!--<input type="submit" value="Submit">-->
     <!--</form>-->
+
     <!--<form action="/rest/getFlights" method="get">-->
         <!--Source : <input type="text" name="source"><br>-->
         <!--Destination : <input type="text" name="destination"><br>-->
         <!--<input type="submit" value="Submit">-->
     <!--</form>-->
-    <form action="/rest/getMultipleDirectFlights" method="get" onsubmit="returnTableFormat()">
+
+    <!--<form action="/rest/getMultipleDirectFlights" method="get" onsubmit="returnTableFormat()">-->
+        <!--Source : <input type="text" name="source"><br>-->
+        <!--Destination : <input type="text" name="destination"><br>-->
+        <!--<input type="submit" value="Submit">-->
+    <!--</form>-->
+
+    <!--<form action="/rest/getFlightsWithDates" method="get">-->
+        <!--Source : <input type="text" name="source"><br>-->
+        <!--Destination : <input type="text" name="destination"><br>-->
+        <!--Depart Date : <input type="date" name="depDate"><br>-->
+        <!--Return Date : <input type="date" name="retDate"><br>-->
+        <!--<input type="submit" value="Submit">-->
+    <!--</form>-->
+
+    <form action="/rest/getFlightsHavingSingleStop" method="get">
         Source : <input type="text" name="source"><br>
+        Stop : <input type="text" name="stop"><br>
         Destination : <input type="text" name="destination"><br>
         <input type="submit" value="Submit">
     </form>
+
+    <!--<form action="/rest/getFlightsHavingSingleStop" method="get">-->
+        <!--Source : <input type="text" name="source"><br>-->
+        <!--Stop : <input type="text" name="stop"><br>-->
+        <!--Destination : <input type="text" name="destination"><br>-->
+        <!--Depart Date : <input type="date" name="depDate"><br>-->
+        <!--<input type="submit" value="Submit">-->
+    <!--</form>-->
+
     <!--<script>-->
         <!--function returnTableFormat(){-->
             <!--var resultJSON = '{"fid":"13","fname":"CtoM","arrDate":"2018-02-25","depTime":"17:00:25","company":"SpiceJet","arrTime":"13:20:55","depDate":"2018-02-25"}';-->

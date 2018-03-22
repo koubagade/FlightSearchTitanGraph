@@ -13,10 +13,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class JavaGraphOp {
@@ -69,10 +66,10 @@ public class JavaGraphOp {
 
             jsonObject.put("fid",e.property("fid").value().toString());
             jsonObject.put("fname",e.property("fname").value().toString());
-            jsonObject.put("arrTime",e.property("arrTime").value().toString());
             jsonObject.put("depTime",e.property("depTime").value().toString());
-            jsonObject.put("arrDate",e.property("arrDate").value().toString());
+            jsonObject.put("arrTime",e.property("arrTime").value().toString());
             jsonObject.put("depDate",e.property("depDate").value().toString());
+            jsonObject.put("retDate",e.property("retDate").value().toString());
             jsonObject.put("company",e.property("company").value().toString());
             jsonObject.put("source",e.property("source").value().toString());
             jsonObject.put("destination",e.property("destination").value().toString());
@@ -135,10 +132,10 @@ public class JavaGraphOp {
                         if (e.inVertex().property("name").value().equals(destination)) {
                             availableFlights.put("fid",e.property("fid").value().toString());
                             availableFlights.put("fname",e.property("fname").value().toString());
-                            availableFlights.put("arrTime",e.property("arrTime").value().toString());
                             availableFlights.put("depTime",e.property("depTime").value().toString());
-                            availableFlights.put("arrDate",e.property("arrDate").value().toString());
+                            availableFlights.put("arrTime",e.property("arrTime").value().toString());
                             availableFlights.put("depDate",e.property("depDate").value().toString());
+                            availableFlights.put("retDate",e.property("retDate").value().toString());
                             availableFlights.put("company",e.property("company").value().toString());
                         }
                     }
@@ -177,12 +174,118 @@ public class JavaGraphOp {
                             temp = new JSONObject();
                             temp.put("fid",e.property("fid").value().toString());
                             temp.put("fname",e.property("fname").value().toString());
-                            temp.put("arrTime",e.property("arrTime").value().toString());
                             temp.put("depTime",e.property("depTime").value().toString());
-                            temp.put("arrDate",e.property("arrDate").value().toString());
+                            temp.put("arrTime",e.property("arrTime").value().toString());
                             temp.put("depDate",e.property("depDate").value().toString());
+                            temp.put("retDate",e.property("retDate").value().toString());
                             temp.put("company",e.property("company").value().toString());
                             availableFlights.add(temp);
+                        }
+                    }
+
+                    break;
+                }
+            }
+        } catch (Exception e){
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+        return availableFlights;
+    }
+
+    public List<JSONObject> getFlightsWithDates(String source, String destination, String depDate, String retDate) {
+        logger.info("Checkpoint 1 {}", source);
+        logger.info("Checkpoint 1 {}", destination);
+        logger.info("Checkpoint 1 {}", depDate);
+
+        List<JSONObject> availableFlights = new ArrayList<JSONObject>();
+        JSONObject temp;
+        List<Vertex> vList = new ArrayList<Vertex> ();
+        Vertex v = null;
+        List<Edge> edgeList = null;
+
+        try {
+            GraphTraversalSource graph = g.traversal();
+            vList = graph.V().toList();
+            logger.info("Number of vertices: {}", vList.size());
+            for(Vertex v1: vList){
+                if (v1.property("name").value().equals(source)){
+                    edgeList = graph.V(v1).outE().toList();
+                    for (Edge e: edgeList) {
+                        logger.info("{} -  {}", e.property("fid"), e.property("fname"));
+                        if (e.inVertex().property("name").value().equals(destination)) {
+                            logger.info("Database depDate {}", e.property("depDate"));
+                            logger.info("Database retDate {}", e.property("retDate"));
+                            if(e.property("depDate").value().equals(depDate) && e.property("retDate").value().equals(retDate)) {
+                                temp = new JSONObject();
+                                temp.put("fid",e.property("fid").value().toString());
+                                temp.put("fname",e.property("fname").value().toString());
+                                temp.put("depTime",e.property("depTime").value().toString());
+                                temp.put("arrTime",e.property("arrTime").value().toString());
+                                temp.put("company",e.property("company").value().toString());
+                                availableFlights.add(temp);
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e){
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+        return availableFlights;
+    }
+
+    public List<JSONObject> getFlightsHavingSingleStop(String source, String stop,String destination) {
+        logger.info("Checkpoint 1 {}", source);
+        logger.info("Checkpoint 1 {}", stop);
+        logger.info("Checkpoint 1 {}", destination);
+
+        List<JSONObject> availableFlights = new ArrayList<JSONObject>();
+        JSONObject temp1,temp2;
+        List<Vertex> vList = new ArrayList<Vertex> ();
+        Vertex v = null;
+        List<Edge> edgeList1 = null;
+        List<Edge> edgeList2 = null;
+
+        try {
+            GraphTraversalSource graph = g.traversal();
+            vList = graph.V().toList();
+            logger.info("Number of vertices: {}", vList.size());
+            for(Vertex v1: vList){
+                if (v1.property("name").value().equals(source)){
+                    edgeList1 = graph.V(v1).outE().toList();
+                    for (Edge e: edgeList1) {
+                        if (e.inVertex().property("name").value().equals(stop)) {
+                            temp1 = new JSONObject();
+                            temp1.put("fid", e.property("fid").value().toString());
+                            temp1.put("fname", e.property("fname").value().toString());
+                            temp1.put("depTime", e.property("depTime").value().toString());
+                            temp1.put("arrTime", e.property("arrTime").value().toString());
+                            temp1.put("depDate", e.property("depDate").value().toString());
+                            temp1.put("retDate", e.property("retDate").value().toString());
+                            temp1.put("company", e.property("company").value().toString());
+                            availableFlights.add(temp1);
+                            for (Vertex v2: vList){
+                                if (v2.property("name").value().equals(stop)){
+                                    edgeList2 = graph.V(v2).outE().toList();
+                                    for (Edge edge: edgeList2){
+                                        if (edge.inVertex().property("name").value().equals(destination)){
+                                            temp2 = new JSONObject();
+                                            temp2.put("fid", edge.property("fid").value().toString());
+                                            temp2.put("fname", edge.property("fname").value().toString());
+                                            temp2.put("depTime", edge.property("depTime").value().toString());
+                                            temp2.put("arrTime", edge.property("arrTime").value().toString());
+                                            temp2.put("depDate", edge.property("depDate").value().toString());
+                                            temp2.put("retDate", edge.property("retDate").value().toString());
+                                            temp2.put("company", edge.property("company").value().toString());
+
+                                            availableFlights.add(temp2);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
 
