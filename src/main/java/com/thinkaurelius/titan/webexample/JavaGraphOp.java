@@ -13,7 +13,11 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
+
+import static org.apache.tinkerpop.gremlin.structure.Direction.OUT;
 
 @Component
 public class JavaGraphOp {
@@ -69,7 +73,7 @@ public class JavaGraphOp {
             jsonObject.put("depTime",e.property("depTime").value().toString());
             jsonObject.put("arrTime",e.property("arrTime").value().toString());
             jsonObject.put("depDate",e.property("depDate").value().toString());
-            jsonObject.put("retDate",e.property("retDate").value().toString());
+            jsonObject.put("arrDate",e.property("arrDate").value().toString());
             jsonObject.put("company",e.property("company").value().toString());
             jsonObject.put("source",e.property("source").value().toString());
             jsonObject.put("destination",e.property("destination").value().toString());
@@ -135,7 +139,7 @@ public class JavaGraphOp {
                             availableFlights.put("depTime",e.property("depTime").value().toString());
                             availableFlights.put("arrTime",e.property("arrTime").value().toString());
                             availableFlights.put("depDate",e.property("depDate").value().toString());
-                            availableFlights.put("retDate",e.property("retDate").value().toString());
+                            availableFlights.put("arrDate",e.property("arrDate").value().toString());
                             availableFlights.put("company",e.property("company").value().toString());
                         }
                     }
@@ -177,7 +181,7 @@ public class JavaGraphOp {
                             temp.put("depTime",e.property("depTime").value().toString());
                             temp.put("arrTime",e.property("arrTime").value().toString());
                             temp.put("depDate",e.property("depDate").value().toString());
-                            temp.put("retDate",e.property("retDate").value().toString());
+                            temp.put("arrDate",e.property("arrDate").value().toString());
                             temp.put("company",e.property("company").value().toString());
                             availableFlights.add(temp);
                         }
@@ -193,7 +197,7 @@ public class JavaGraphOp {
         return availableFlights;
     }
 
-    public List<JSONObject> getFlightsWithDates(String source, String destination, String depDate, String retDate) {
+    public List<JSONObject> getFlightsWithDates(String source, String destination, String depDate, String arrDate) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
         logger.info("Checkpoint 1 {}", depDate);
@@ -215,8 +219,8 @@ public class JavaGraphOp {
                         logger.info("{} -  {}", e.property("fid"), e.property("fname"));
                         if (e.inVertex().property("name").value().equals(destination)) {
                             logger.info("Database depDate {}", e.property("depDate"));
-                            logger.info("Database retDate {}", e.property("retDate"));
-                            if(e.property("depDate").value().equals(depDate) && e.property("retDate").value().equals(retDate)) {
+                            logger.info("Database retDate {}", e.property("arrDate"));
+                            if(e.property("depDate").value().equals(depDate) && e.property("arrDate").value().equals(arrDate)) {
                                 temp = new JSONObject();
                                 temp.put("fid",e.property("fid").value().toString());
                                 temp.put("fname",e.property("fname").value().toString());
@@ -264,7 +268,7 @@ public class JavaGraphOp {
                             temp1.put("depTime", e.property("depTime").value().toString());
                             temp1.put("arrTime", e.property("arrTime").value().toString());
                             temp1.put("depDate", e.property("depDate").value().toString());
-                            temp1.put("retDate", e.property("retDate").value().toString());
+                            temp1.put("arrDate", e.property("arrDate").value().toString());
                             temp1.put("company", e.property("company").value().toString());
                             availableFlights.add(temp1);
                             for (Vertex v2: vList){
@@ -298,4 +302,56 @@ public class JavaGraphOp {
         }
         return availableFlights;
     }
+
+    public List<JSONObject> getConnectedFlights(String source, String destination) {
+        logger.info("Checkpoint 1 {}", source);
+        logger.info("Checkpoint 1 {}", destination);
+
+        List<JSONObject> availableFlights = new ArrayList<JSONObject>();
+        JSONObject temp1,temp2;
+        List<Vertex> vList = new ArrayList<Vertex> ();
+        List<Edge> edgeList1 = null;
+        List<Edge> edgeList2 = null;
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
+
+        try {
+            GraphTraversalSource graph = g.traversal();
+            vList = graph.V().toList();
+            logger.info("Number of vertices: {}", vList.size());
+            for(Vertex v1: vList){
+                if (v1.property("name").value().equals(source)){
+                    edgeList1 = graph.V(v1).outE().toList();
+                    for (Edge e1: edgeList1) {
+                        logger.info("{} - {}", e1.property("fid"), e1.property("fname"));
+                        Date date1 = sdf1.parse(String.valueOf(e1.property("depDate").value()));
+                        Date time1 = sdf2.parse(String.valueOf(e1.property("depTime").value()));
+                        logger.info("time1 : {} ",time1);
+
+                        if (!e1.inVertex().property("name").value().equals(destination)) {
+                            edgeList2 = graph.V(e1.inVertex()).outE().toList();
+                            for (Edge e2: edgeList2) {
+                                Date date2 = sdf1.parse(String.valueOf(e2.property("depDate").value()));
+                                Date time2 = sdf2.parse(String.valueOf(e2.property("depTime").value()));
+                                logger.info("time2 : {} ",time2);
+                                logger.info("{} -> {} ", e2.property("fid"), e2.property("fname"));
+                                if(e2.inVertex().property("name").value().equals(destination) && date2.after(date1) && time2.after(time1)){
+                                    temp1 = new JSONObject();
+                                    temp1.put("flight-1", e1.property("fname").value().toString());
+                                    temp1.put("flight-2", e2.property("fname").value().toString());
+                                    availableFlights.add(temp1);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (Exception e){
+            logger.error(e.toString());
+            e.printStackTrace();
+        }
+        return availableFlights;
+    }
+
 }

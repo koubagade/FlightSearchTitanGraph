@@ -83,7 +83,7 @@ public class TitanWebService {
     @Produces(MediaType.TEXT_PLAIN)
     public String getMultipleDirectFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
         logger.info("Received source airport name {}", source);
-        logger.info("Received source airport name {}", destination);
+        logger.info("Received destination airport name {}", destination);
         List result = javaOp.getMultipleDirectFlights(source, destination);
         if (result.isEmpty()){
             return "Not Found";
@@ -121,6 +121,22 @@ public class TitanWebService {
         logger.info("Received destination airport name {}", destination);
 
         List result = javaOp.getFlightsHavingSingleStop(source, stop, destination);
+        if (result.isEmpty()){
+            return "Not Found";
+        }
+        else{
+            return "\"" + result + "\"";
+        }
+    }
+
+    //get connected flights only for source and destination
+    @GET
+    @Path("getConnectedFlights")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getConnectedFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
+        logger.info("Received source airport name {}", source);
+        logger.info("Received destination airport name {}", destination);
+        List result = javaOp.getConnectedFlights(source, destination);
         if (result.isEmpty()){
             return "Not Found";
         }
