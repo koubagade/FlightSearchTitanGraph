@@ -1,74 +1,295 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Airports And Flights</title>
+﻿<html>
+<head>
+    <title> Airline Reservation  </title>
+    <link rel="stylesheet" href="css/stylesheet.css" />
+    <meta charset="utf-8">
+    <link rel="icon" href="Images/website-icon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i%7CMerriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <style>
+        .back-img{
+            background-image:url('Images/flightMain.jpeg');
+            height:100%;
+        }
+    </style>
 </head>
-<body>
-    <font face="verdana" color="green">
-        <h1>Airports and Flights</h1>
-    </font>
+ <body>
+    <nav class="navbar navbar-default main-navbar navbar-custom navbar-white navbar-fixed-top" id="mynavbar-1">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" id="menu-button">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+              <!--  <div class="header-search hidden-lg">
+                    <a href="javascript:void(0)" class="search-button"><span><i class="fa fa-search"></i></span></a>
+                </div> -->
+                <a href="#" class="navbar-brand"><span><i class="fa fa-plane color-font"></i>Airlines </span>Reservation</a>
+            </div><!-- end navbar-header -->
 
-    <a href="/rest/listEdges">All Edges by Name</a><br/>
-    <a href="/rest/listVertices">All vertices by name</a><br/>
-    
-    <!--<form action="/rest/getAirport" method="get">-->
-        <!--<input type="text" name="airport">-->
-        <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
+            <div class="collapse navbar-collapse" id="myNavbar1">
+                <ul class="nav navbar-nav navbar-right navbar-search-link">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home<span><i class="fa fa-angle-down"></i></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html">Main Homepage</a></li>
+                           
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Flight<span><i class="fa fa-angle-down"></i></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="flight-homepage.html">Flight Homepage</a></li>
+                  
+                            
+                           
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offer<span><i class="fa fa-angle-down"></i></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="hotel-homepage.html">Hotel</a></li>
+                            <li><a href="hotel-listing-left-sidebar.html">Flight</a></li>
+                            <li><a href="hotel-listing-right-sidebar.html">Cruize</a></li>
+                            <li><a href="hotel-grid-left-sidebar.html">Car</a></li>
+                            <li><a href="hotel-grid-right-sidebar.html">Holiday </a></li>
+                           
+                         </ul>
+                    </li>
 
-    <!--<form action="/rest/getFlights" method="get">-->
-        <!--Source : <input type="text" name="source"><br>-->
-        <!--Destination : <input type="text" name="destination"><br>-->
-        <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
+                    <li><a href="login.html">Contact Us </a></li>
 
-    <!--<form action="/rest/getMultipleDirectFlights" method="get" onsubmit="returnTableFormat()">-->
-        <!--Source : <input type="text" name="source"><br>-->
-        <!--Destination : <input type="text" name="destination"><br>-->
-        <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
+                    <li><a href="login.html"><span><i class="fa fa-lock color-font"> </i></span> &nbsp; Login </a></li>
+                    <li><a href="registration.html"><i class="fa fa-plus color-font"> </i></span> &nbsp; Sign Up</a></li>
+                    <li></li>
+                </ul>
+            </div><!-- end navbar collapse -->
+        </div><!-- end container -->
+    </nav><!-- end navbar -->
+     
+    <div class="back-img">
+    <div class="search-tabs " id="search-tabs-1">
+        <div class="container color-font">
+            <div class="row">
+                <div class="col-sm-12">
 
-    <!--<form action="/rest/getFlightsWithDates" method="get">-->
-        <!--Source : <input type="text" name="source"><br>-->
-        <!--Destination : <input type="text" name="destination"><br>-->
-        <!--Depart Date : <input type="date" name="depDate"><br>-->
-        <!--Return Date : <input type="date" name="retDate"><br>-->
-        <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
+                    <ul class="nav nav-tabs center-tabs">
+                        <li class="active"><a href="#flights" data-toggle="tab"><span><i class="fa fa-plane"></i></span><span class="st-text">Flights</span></a></li>
+                   </ul>
 
-    <!--<form action="/rest/getFlightsHavingSingleStop" method="get">-->
-        <!--Source : <input type="text" name="source"><br>-->
-        <!--Stop : <input type="text" name="stop"><br>-->
-        <!--Destination : <input type="text" name="destination"><br>-->
-        <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
+                    <div class="tab-content">
 
-    <!--<form action="/rest/getFlightsHavingSingleStop" method="get">-->
-        <!--Source : <input type="text" name="source"><br>-->
-        <!--Stop : <input type="text" name="stop"><br>-->
-        <!--Destination : <input type="text" name="destination"><br>-->
-        <!--Depart Date : <input type="date" name="depDate"><br>-->
-        <!--<input type="submit" value="Submit">-->
-    <!--</form>-->
+                        <div id="flights" class="tab-pane in active">
+                            <form action="/rest/getFlights" method="get">
+                                <div class="row">
 
-    <form action="/rest/getConnectedFlights" method="get">
-    Source : <input type="text" name="source"><br>
-    Destination : <input type="text" name="destination"><br>
-    <input type="submit" value="Submit">
-    </form>
+                                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                                        <div class="row">
 
-    <!--<script>-->
-        <!--function returnTableFormat(){-->
-            <!--var resultJSON = '{"fid":"13","fname":"CtoM","arrDate":"2018-02-25","depTime":"17:00:25","company":"SpiceJet","arrTime":"13:20:55","depDate":"2018-02-25"}';-->
-            <!--document.write("<table border=1> <th>Key</th><th>Value</th>");-->
-            <!--var data = JSON.parse(resultJSON);-->
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group left-icon">
+                                                    
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
+                                                        <input id="from" type="text" class="form-control" name="source" placeholder="from">
+                                                    </div>
+                                                </div>
+                                            </div><!-- end columns -->
 
-            <!--for (var key in data)-->
-            <!--{-->
-                <!--document.write("<tr><td>"+key+"</td>"+"<td>"+data[key]+"</td></tr><br>");-->
-            <!--}-->
-        <!--}-->
-    <!--</script>-->
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group left-icon">
+                                                    <div class="form-group left-icon">
+
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
+                                                            <input id="to" type="text" class="form-control" name="destination" placeholder="To">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end columns -->
+
+                                        </div><!-- end row -->
+                                    </div><!-- end columns -->
+
+                                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                                        <div class="row">
+
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group left-icon">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar color-font"></i></span>
+                                                        <input id="calenderFrom" type="text" class="form-control" name="calenderFrom" placeholder="Choose Date">
+                                                    </div>
+                                                </div>
+                                            </div><!-- end columns -->
+
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group left-icon">
+                                                    <div class="form-group left-icon">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar color-font"></i></span>
+                                                            <input id="calenderTo" type="text" class="form-control" name="calenderTo" placeholder="Choose Date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end columns -->
+
+                                        </div><!-- end row -->
+                                    </div><!-- end columns -->
+
+                                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                                        <div class="form-group right-icon">
+                                            <select class="form-control color-font">
+                                                <option selected>Adults</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div><!-- end columns -->
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 search-btn">
+                                        <button class="btn btn-orange back-select-black" type="submit">Search</button>
+                                    </div><!-- end columns -->
+                                 </div><!-- end row -->
+                            </form>
+                        </div><!-- end flights -->
+                     </div><!-- end tab-content -->
+                </div><!-- end columns -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end search-tabs -->
+    </div>
+    <div>
+
+    </div>
+    <section id="offers">
+        <section id="hotel-offers" class="section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-heading">
+                            <h2>Hotels Offers</h2>
+                            <hr class="heading-line" />
+                        </div><!-- end page-heading -->
+
+                       
+
+                        <div class="view-all text-center">
+                            <a href="#" class="btn btn-orange">View All</a>
+                        </div><!-- end view-all -->
+                    </div><!-- end columns -->
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section><!-- end hotel-offers -->
+
+    </section>
+    <section id="best-features" class="banner-padding black-features color-font back-select-black">
+        <div class="container ">
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <div class="b-feature-block">
+                        <span><i class="fa fa-dollar"></i></span>
+                        <h3>Best Price Guarantee</h3>
+                        <br />
+                        <p>Want to travel,then why worry about prices and others ? <p> We will provide best Price Gurantee </p> </p>
+                    </div><!-- end b-feature-block -->
+                </div><!-- end columns -->
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="b-feature-block">
+                        <span><i class="fa fa-lock"></i></span>
+                        <h3>Safe and Secure</h3>
+                        <br />
+                        <p>Your Saftey is our responsibility <p>We will provide best Safe and secure journey</p></p>
+                    </div><!-- end b-feature-block -->
+                </div><!-- end columns -->
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="b-feature-block">
+                        <span><i class="fa fa-thumbs-up"></i></span>
+                        <h3>Best Travel Agents</h3>
+                        <br />
+                        <p>You plan for new Journey Don't worry about best view, visit and much more? we Provide best travel agent <p> </p></p>
+                    </div><!-- end b-feature-block -->
+                </div><!-- end columns -->
+
+                <div class="col-sm-6 col-md-3">
+                    <div class="b-feature-block">
+                        <span><i class="fa fa-bars"></i></span>
+                        <h3>Travel Guidelines</h3>
+                        <br />
+                        <p>The biggest question anyone planning a holiday would ask themselves would be where would my dream vacation be ? <p>We Provide best Guidlines </p></p>
+                    </div><!-- end b-feature-block -->
+                </div><!-- end columns -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section><!-- end best-features -->
+     <section id="testimonials" class="section-padding back-size">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-12">
+                     <div class="page-heading white-heading">
+                         <h2>Testimonials</h2>
+                         <hr class="heading-line" />
+                     </div><!-- end page-heading -->
+
+                     <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                         <div class="carousel-inner text-center">
+
+                             <div class="item active">
+                                 <blockquote> </blockquote>
+                                 <div class="rating">
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star lightgrey"></i></span>
+                                 </div><!-- end rating -->
+                                  
+                             </div><!-- end item -->
+
+                             <div class="item">
+                                 <blockquote> </blockquote>
+                                 <div class="rating">
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star lightgrey"></i></span>
+                                 </div><!-- end rating -->
+
+                                
+                             </div><!-- end item -->
+
+                             <div class="item">
+                                 <blockquote> </blockquote>
+                                 <div class="rating">
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star orange"></i></span>
+                                     <span><i class="fa fa-star lightgrey"></i></span>
+                                 </div> 
+
+                                 
+                             </div><!-- end item -->
+
+                         </div><!-- end carousel-inner -->
+
+                        
+
+                     </div><!-- end quote-carousel -->
+                 </div><!-- end columns -->
+             </div><!-- end row -->
+         </div><!-- end container -->
+     </section><!-- end testimonials -->
 </body>
 </html>
