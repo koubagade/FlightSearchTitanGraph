@@ -32,7 +32,7 @@ public class JavaGraphOp {
         this.g = gf.getGraph();
     }
 
-    public List<JSONObject> listVertices() {
+    /*public List<JSONObject> listVertices() {
         List<JSONObject> airports = new ArrayList<JSONObject>();
         Iterator<Vertex> itty = g.vertices();
         Vertex v;
@@ -54,9 +54,9 @@ public class JavaGraphOp {
 
         }
         return airports;
-    }
+    }*/
 
-    public List<JSONObject> listEdges() {
+    /*public List<JSONObject> listEdges() {
         List<JSONObject> flights = new ArrayList<JSONObject>();
         Iterator<Edge> itty1 = g.edges();
         Edge e;
@@ -81,9 +81,9 @@ public class JavaGraphOp {
             flights.add(jsonObject);
         }
         return flights;
-    }
+    }*/
 
-    public JSONObject getAirport(String sourceAirport) {
+    /*public JSONObject getAirport(String sourceAirport) {
 
         JSONObject airportProperties = new JSONObject();
         logger.info("Checkpoint 1 {}", sourceAirport);
@@ -113,13 +113,14 @@ public class JavaGraphOp {
 
         logger.info("Checkpoint 2");
         return airportProperties;
-    }
+    }*/
 
-    public JSONObject getFlights(String source, String destination) {
+    public List<JSONObject> getFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 
-        JSONObject availableFlights = new JSONObject();
+        List<JSONObject> availableFlights = new ArrayList<>();
+        JSONObject temp = null;
         List<Vertex> vList = new ArrayList<Vertex> ();
         Vertex v = null;
         List<Edge> edgeList = null;
@@ -129,18 +130,19 @@ public class JavaGraphOp {
             vList = graph.V().toList();
             logger.info("Number of vertices: {}", vList.size());
             for(Vertex v1: vList){
-                if (v1.property("name").value().equals(source)){
+                if (v1.property("airport_city").value().toString().equalsIgnoreCase(source)){
                     edgeList = graph.V(v1).outE().toList();
                     for (Edge e: edgeList) {
-                        logger.info("{} -  {}", e.property("fid"), e.property("fname"));
-                        if (e.inVertex().property("name").value().equals(destination)) {
-                            availableFlights.put("fid",e.property("fid").value().toString());
-                            availableFlights.put("fname",e.property("fname").value().toString());
-                            availableFlights.put("depTime",e.property("depTime").value().toString());
-                            availableFlights.put("arrTime",e.property("arrTime").value().toString());
-                            availableFlights.put("depDate",e.property("depDate").value().toString());
-                            availableFlights.put("arrDate",e.property("arrDate").value().toString());
-                            availableFlights.put("company",e.property("company").value().toString());
+                        //logger.info("{} -  {}", e.property("flight_id"));
+                        if (e.inVertex().property("airport_city").value().toString().equalsIgnoreCase(destination)) {
+                            temp = new JSONObject();
+                            temp.put("fid",e.property("flight_id").value().toString());
+                            temp.put("depTime",e.property("departure_time").value().toString());
+                            temp.put("arrTime",e.property("arrival_time").value().toString());
+                            temp.put("depDate",e.property("departure_date").value().toString());
+                            temp.put("arrDate",e.property("arrival_date").value().toString());
+                            temp.put("company",e.property("airline_name").value().toString());
+                            availableFlights.add(temp);
                         }
                     }
                     break;
@@ -154,7 +156,7 @@ public class JavaGraphOp {
         return availableFlights;
     }
 
-    public List<JSONObject> getMultipleDirectFlights(String source, String destination) {
+    /*public List<JSONObject> getMultipleDirectFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 
@@ -195,9 +197,9 @@ public class JavaGraphOp {
             e.printStackTrace();
         }
         return availableFlights;
-    }
+    }*/
 
-    public List<JSONObject> getFlightsWithDates(String source, String destination, String depDate, String arrDate) {
+    /*public List<JSONObject> getFlightsWithDates(String source, String destination, String depDate, String arrDate) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
         logger.info("Checkpoint 1 {}", depDate);
@@ -239,9 +241,9 @@ public class JavaGraphOp {
             e.printStackTrace();
         }
         return availableFlights;
-    }
+    }*/
 
-    public List<JSONObject> getFlightsHavingSingleStop(String source, String stop,String destination) {
+    /*public List<JSONObject> getFlightsHavingSingleStop(String source, String stop,String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", stop);
         logger.info("Checkpoint 1 {}", destination);
@@ -301,9 +303,9 @@ public class JavaGraphOp {
             e.printStackTrace();
         }
         return availableFlights;
-    }
+    }*/
 
-    public List<JSONObject> getConnectedFlights(String source, String destination) {
+    /*public List<JSONObject> getConnectedFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 
@@ -352,6 +354,6 @@ public class JavaGraphOp {
             e.printStackTrace();
         }
         return availableFlights;
-    }
+    }*/
 
 }

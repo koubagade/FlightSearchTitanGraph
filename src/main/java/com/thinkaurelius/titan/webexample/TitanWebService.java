@@ -39,24 +39,24 @@ public class TitanWebService {
         System.out.println("Initialized Titan Web Example Service");
     }
 
-    @GET
+    /*@GET
     @Path("/listEdges")
     @Produces(MediaType.TEXT_PLAIN)
     public String listEdges(@Context UriInfo info) throws JSONException {
         String res = javaOp.listEdges().toString();
         return "\"" + res + "\"";
-    }
+    }*/
 
-    @GET
+    /*@GET
     @Path("/listVertices")
     @Produces(MediaType.TEXT_PLAIN)
     public String listVertices(@Context UriInfo info) throws JSONException {
         String res = javaOp.listVertices().toString();
         return "\"" + res + "\"";
-    }
+    }*/
 
     //only for checking if it working or not
-    @GET
+    /*@GET
     @Path("/getAirport")
     @Produces(MediaType.TEXT_PLAIN)
     public String getAirport(@QueryParam(value = "airport") String airportName) {
@@ -64,7 +64,7 @@ public class TitanWebService {
         HashMap<String, String> result = javaOp.getAirport(airportName);
         logger.info("Returning airport properties {}", result.toString());
         return "\"" + result.toString() + "\"";
-    }
+    }*/
 
     //get single flight only for source and destination
     @GET
@@ -73,12 +73,12 @@ public class TitanWebService {
     public String getFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
         logger.info("Received source airport name {}", source);
         logger.info("Received destination airport name {}", destination);
-        JSONObject result = javaOp.getFlights(source, destination);
+        String result = javaOp.getFlights(source, destination).toString();
         return "\"" + result + "\"";
     }
 
     //get multiple direct flights only for source and destination
-    @GET
+    /*@GET
     @Path("getMultipleDirectFlights")
     @Produces(MediaType.TEXT_PLAIN)
     public String getMultipleDirectFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
@@ -91,10 +91,10 @@ public class TitanWebService {
         else{
             return "\"" + result + "\"";
         }
-    }
+    }*/
 
     //get multiple flights according to source, destination, depDate, retDate
-    @GET
+    /*@GET
     @Path("getFlightsWithDates")
     @Produces(MediaType.TEXT_PLAIN)
     public String getFlightsWithDates(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination, @QueryParam(value = "depDate") String depDate, @QueryParam(value="retDate") String retDate) {
@@ -109,10 +109,10 @@ public class TitanWebService {
         else{
             return "\"" + result + "\"";
         }
-    }
+    }*/
 
     //get flights having single stop
-    @GET
+    /*@GET
     @Path("getFlightsHavingSingleStop")
     @Produces(MediaType.TEXT_PLAIN)
     public String getFlightsHavingSingleStop(@QueryParam(value = "source") String source, @QueryParam(value = "stop") String stop, @QueryParam(value = "destination") String destination) {
@@ -127,10 +127,10 @@ public class TitanWebService {
         else{
             return "\"" + result + "\"";
         }
-    }
+    }*/
 
     //get connected flights only for source and destination
-    @GET
+    /*@GET
     @Path("getConnectedFlights")
     @Produces(MediaType.TEXT_PLAIN)
     public String getConnectedFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
@@ -143,5 +143,5 @@ public class TitanWebService {
         else{
             return "\"" + result + "\"";
         }
-    }
+    }*/
 }
