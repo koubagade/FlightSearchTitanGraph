@@ -305,7 +305,7 @@ public class JavaGraphOp {
         return availableFlights;
     }*/
 
-    /*public List<JSONObject> getConnectedFlights(String source, String destination) {
+    public List<JSONObject> getConnectedFlights(String source, String destination) {
         logger.info("Checkpoint 1 {}", source);
         logger.info("Checkpoint 1 {}", destination);
 
@@ -354,6 +354,6 @@ public class JavaGraphOp {
             e.printStackTrace();
         }
         return availableFlights;
-    }*/
+    }
 
 }
