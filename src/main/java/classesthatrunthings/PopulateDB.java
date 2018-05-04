@@ -4,6 +4,7 @@ import com.thinkaurelius.titan.core.TitanFactory;
 import com.thinkaurelius.titan.core.TitanGraph;
 import com.thinkaurelius.titan.core.util.TitanCleanup;
 import com.thinkaurelius.titan.webexample.AirportsAndFlights;
+import com.thinkaurelius.titan.webexample.InsertData;
 import com.thinkaurelius.titan.webexample.TitanGraphFactory;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -25,6 +26,7 @@ public class PopulateDB {
         // Interested in the source?
         // https://github.com/thinkaurelius/titan/blob/titan05/titan-core/src/main/java/com/thinkaurelius/titan/example/GraphOfTheGodsFactory.java
         AirportsAndFlights.load(g);
+        //InsertData.load(g);
         g.close();
         System.out.println("Success.");
     }

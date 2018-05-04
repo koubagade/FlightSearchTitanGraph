@@ -1,24 +1,18 @@
 package com.thinkaurelius.titan.webexample;
 
-import org.codehaus.jettison.json.JSONException;
-import org.json.simple.JSONObject;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.PostConstruct;
-import javax.print.attribute.standard.Media;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
-import java.util.Date;
-import java.util.HashMap;
+import javax.ws.rs.core.Response;
 import java.util.List;
-
-import org.slf4j.Logger;
 
 /**
  * This class handles the HTTP requests.
@@ -29,119 +23,50 @@ public class TitanWebService {
     Logger logger = LoggerFactory.getLogger(TitanWebService.class);
 
     @Autowired
-    GroovyGraphOp groovyOp;
-
-    @Autowired
     JavaGraphOp javaOp;
 
     @PostConstruct
-    private void init() {
+    public void init() {
         System.out.println("Initialized Titan Web Example Service");
     }
 
-    /*@GET
-    @Path("/listEdges")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String listEdges(@Context UriInfo info) throws JSONException {
-        String res = javaOp.listEdges().toString();
-        return "\"" + res + "\"";
-    }*/
-
-    /*@GET
-    @Path("/listVertices")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String listVertices(@Context UriInfo info) throws JSONException {
-        String res = javaOp.listVertices().toString();
-        return "\"" + res + "\"";
-    }*/
-
     //only for checking if it working or not
-    /*@GET
+    @GET
     @Path("/getAirport")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getAirport(@QueryParam(value = "airport") String airportName) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAirport(@QueryParam(value = "airport") String airportName) {
         logger.info("Received airport name {}", airportName);
-        HashMap<String, String> result = javaOp.getAirport(airportName);
-        logger.info("Returning airport properties {}", result.toString());
-        return "\"" + result.toString() + "\"";
-    }*/
+        String result = javaOp.getAllAirports().toString();
+        System.out.println(result);
+        return Response
+            .status(200)
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .header("Access-Control-Max-Age", "1209600")
+            .entity(result)
+            .build();
+    }
 
-    //get single flight only for source and destination
     @GET
     @Path("getFlights")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFlights(@QueryParam("source") String source, @QueryParam("destination") String destination) {
         logger.info("Received source airport name {}", source);
         logger.info("Received destination airport name {}", destination);
         String result = javaOp.getFlights(source, destination).toString();
-        return "\"" + result + "\"";
+        System.out.println(result);
+        List<Float> list = javaOp.getAvgEdges();
+        System.out.println("inAvg = " + list.get(0) + "outAvg = " + list.get(1));
+        return Response
+            .status(200)
+            .header("Access-Control-Allow-Origin", "*")
+            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+            .header("Access-Control-Allow-Credentials", "true")
+            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+            .header("Access-Control-Max-Age", "1209600")
+            .entity(result)
+            .build();
     }
-
-    //get multiple direct flights only for source and destination
-    /*@GET
-    @Path("getMultipleDirectFlights")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getMultipleDirectFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
-        logger.info("Received source airport name {}", source);
-        logger.info("Received destination airport name {}", destination);
-        List result = javaOp.getMultipleDirectFlights(source, destination);
-        if (result.isEmpty()){
-            return "Not Found";
-        }
-        else{
-            return "\"" + result + "\"";
-        }
-    }*/
-
-    //get multiple flights according to source, destination, depDate, retDate
-    /*@GET
-    @Path("getFlightsWithDates")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getFlightsWithDates(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination, @QueryParam(value = "depDate") String depDate, @QueryParam(value="retDate") String retDate) {
-        logger.info("Received source airport name {}", source);
-        logger.info("Received destination airport name {}", destination);
-        logger.info("Received depart date {}", depDate);
-        logger.info("Received return date {}", retDate);
-        List result = javaOp.getFlightsWithDates(source, destination, depDate, retDate);
-        if (result.isEmpty()){
-            return "Not Found";
-        }
-        else{
-            return "\"" + result + "\"";
-        }
-    }*/
-
-    //get flights having single stop
-    /*@GET
-    @Path("getFlightsHavingSingleStop")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getFlightsHavingSingleStop(@QueryParam(value = "source") String source, @QueryParam(value = "stop") String stop, @QueryParam(value = "destination") String destination) {
-        logger.info("Received source airport name {}", source);
-        logger.info("Received stop airport name {}", stop);
-        logger.info("Received destination airport name {}", destination);
-
-        List result = javaOp.getFlightsHavingSingleStop(source, stop, destination);
-        if (result.isEmpty()){
-            return "Not Found";
-        }
-        else{
-            return "\"" + result + "\"";
-        }
-    }*/
-
-    //get connected flights only for source and destination
-    /*@GET
-    @Path("getConnectedFlights")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getConnectedFlights(@QueryParam(value = "source") String source, @QueryParam(value = "destination") String destination) {
-        logger.info("Received source airport name {}", source);
-        logger.info("Received destination airport name {}", destination);
-        List result = javaOp.getConnectedFlights(source, destination);
-        if (result.isEmpty()){
-            return "Not Found";
-        }
-        else{
-            return "\"" + result + "\"";
-        }
-    }*/
 }

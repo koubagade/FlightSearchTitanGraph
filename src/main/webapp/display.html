@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <head>
+        <title>Testing</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+            var myJSON = [{ "name":"John", "age":31, "city":"New York" },
+                        { "name":"Dan", "age":25, "city":"San Jose" }];
+
+            $(document).ready(function() {
+                var table = $('<table class="table table-bordered table-striped"/>').appendTo($('#demo'));
+                $('<tr/>').appendTo(table)
+                        .append($('<th/>').text('Name'))
+                        .append($('<th/>').text('Age'))
+                        .append($('<th/>').text('City'));
+                $(myJSON).each(function(i, person) {
+                    $('<tr/>').appendTo(table)
+                        .append($('<td/>').text(person.name))
+                        .append($('<td/>').text(person.age))
+                        .append($('<td/>').text(person.city));
+                });
+            });
+            $(document).ready(function(){
+                $("#myBtn").click(function(){
+                    var source = $("#source").val();
+                    var destination = $("#destination").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/home/supriya/BEProject/FlightSearchTitanGraph/src/main/java/com/thinkaurelius/titan/webexample/TitanWebService.java",
+                        data: {"source": source, "destination": destination},
+                        success: function(msg){
+                            alert( "Data Saved: " + msg );
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="demo" class="col-md-3"></div>
+        <div id="demo2"></div>
+        <form id="myForm" method="get" action="/home/supriya/BEProject/FlightSearchTitanGraph/src/main/java/com/thinkaurelius/titan/webexample/TitanWebService.java/doPost">
+            Source : <input type="text" id="source">
+            Destination : <input type="text" id="destination">
+            <button id="myBtn" type="submit">Submit</button>
+        </form>
+    </body>
+</HTML>
