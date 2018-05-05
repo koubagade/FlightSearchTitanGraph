@@ -192,6 +192,9 @@ public class JavaGraphOp {
             logger.error(e.toString());
             e.printStackTrace();
         }
+        for(int i = 0;i < array.size();i++) {
+            System.out.println(array.get(i));
+        }
         return array;
     }
 

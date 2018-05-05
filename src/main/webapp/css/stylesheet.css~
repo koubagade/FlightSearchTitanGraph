@@ -4203,7 +4203,7 @@ h1,h2,h3,h4,h5,h6,.main-title a, .flight-info h3 .flight-destination,.blog-post-
 	letter-spacing:0.15em;
 }
 
-.dashboard-listing {
+.dashboard-listing table{
 	margin-bottom:0px;
 }
 
@@ -4214,12 +4214,12 @@ h1,h2,h3,h4,h5,h6,.main-title a, .flight-info h3 .flight-destination,.blog-post-
 	margin-bottom:0px;
 }
 
-.dashboard-listing  td.dash-list-icon{
+.dashboard-listing table td.dash-list-icon{
 	width:85px;
 	padding-left:35px;
 }
 
-.dashboard-listing  td.dash-list-icon .fa{
+.dashboard-listing table td.dash-list-icon .fa{
 	font-size:18px;
 	height:37px;
 	width:38px;
@@ -4227,16 +4227,16 @@ h1,h2,h3,h4,h5,h6,.main-title a, .flight-info h3 .flight-destination,.blog-post-
 	padding-top:10px;
 }
 
-.dashboard-listing  td.dash-list-text{
+.dashboard-listing table td.dash-list-text{
 	padding-left:8px;
 	padding-right:8px;
 }
 
-.dashboard-listing  td.dash-list-btn{
+.dashboard-listing table td.dash-list-btn{
 	text-align:right;
 }
 
-.dashboard-listing  td.dash-list-btn .btn{
+.dashboard-listing table td.dash-list-btn .btn{
 	opacity:0;
 }
 
@@ -4457,11 +4457,11 @@ h1,h2,h3,h4,h5,h6,.main-title a, .flight-info h3 .flight-destination,.blog-post-
 
 /************* WISHLIST PAGE ************/
 
-.wishlist  tr{
+.wishlist table tr{
 	margin-bottom:28px;
 }
 
-.wishlist  tr td{
+.wishlist table tr td{
 	padding:0px;
 }
 
@@ -4813,15 +4813,15 @@ h1,h2,h3,h4,h5,h6,.main-title a, .flight-info h3 .flight-destination,.blog-post-
 	padding-bottom:10px;
 }
 
-.traveler-info .-responsive{
+.traveler-info .table-responsive{
 	border:0px;
 }
 
-.traveler-info  tr td:nth-child(2){
+.traveler-info table tr td:nth-child(2){
 	font-weight:bold;	
 }
 
-.traveler-info  tr td:first-child{
+.traveler-info table tr td:first-child{
 	padding-left:0px;
 }
 
@@ -4869,31 +4869,31 @@ h1,h2,h3,h4,h5,h6,.main-title a, .flight-info h3 .flight-destination,.blog-post-
 	margin:10px auto;
 }
 
-#payment-success  thead tr td{
+#payment-success table thead tr td{
 	height:50px;
 	font-weight:bold;
 	font-size:17px;
 	text-transform:uppercase;
 }
 
-#payment-success  tbody tr td{
+#payment-success table tbody tr td{
 	padding:15px 0px;
 }
 
-#payment-success  tbody td:fist-child .fa{
+#payment-success table tbody td:fist-child .fa{
 	display:block;
 }
 
-#payment-success  td{
+#payment-success table td{
 	width:33.33%;
 	font-size:15px;
 }
 
-#payment-success  td .fa{
+#payment-success table td .fa{
 	margin-right:8px;
 }
 
-#payment-success  td .t-date{
+#payment-success table td .t-date{
 	display:block;
 	font-size:12px;
 }

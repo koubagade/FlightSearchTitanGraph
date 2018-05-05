@@ -1,4 +1,6 @@
-﻿﻿﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title> Airline Reservation  </title>
     <link rel="stylesheet" href="css/stylesheet.css" />
@@ -17,9 +19,88 @@
             height:100%;
         }
     </style>
+    <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 200px;
+}
+
+th {
+    background-color: #ffffaa;
+}
+
+td, th {
+    border: 1px solid #bbbbbb;
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+    <script >
+    function myfunction() {
+        var source = document.getElementById("source").value;
+        var destination = document.getElementById("destination").value;
+        //var server = "192.168.0.24";
+        var server = "localhost";
+        var port = "9091";
+        var params = "?source="+source+"&destination="+destination;
+        var url = "http://"+server+":"+port+"/rest/getFlights"+params;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                createTable(this.responseText);
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+
+    function createTable(data){
+        if (data){
+            var json_data = JSON.parse(data);
+            var len = json_data.length;
+            var txt1 = "";
+            var txt2 = "";
+            var header = "<tr><th>No. of Stops</th><th>Flight ID</th><th>Airline</th><th>Departure Date</th><th>Departure Time</th><th>Arrival Date</th><th>Arrival Time</th><th>Duration</th></tr>";
+            if (len > 0){
+                for(var i=0;i < len; i++){
+                    //console.log(JSON.stringify(json_data[i]));
+                    if(json_data[i].duration && json_data[i].stops == 0) {
+                         var json_flight = json_data[i].flight;
+                         if(json_flight.fid && json_flight.airline && json_flight.depDate && json_flight.depTime && json_flight.arrDate && json_flight.arrTime) {
+                            txt1 += "<tr><td>"+json_data[i].stops+"</td><td>"+json_flight.fid+"</td><td>"+json_flight.airline+"</td><td>"+json_flight.depDate+"</td><td>"+json_flight.depTime+"</td><td>"+json_flight.arrDate+"</td><td>"+json_flight.arrTime+"</td><td>"+json_data[i].duration+"</td></tr>";
+                        }
+                    }
+                    if(json_data[i].duration && json_data[i].stops == 1) {
+                        var json_flight1 = json_data[i].flight1;
+                        var json_flight2 = json_data[i].flight2;
+                        if(json_flight1.fid && json_flight1.airline && json_flight1.depDate && json_flight1.depTime && json_flight1.arrDate && json_flight1.arrTime && json_flight2.fid && json_flight2.airline && json_flight2.depDate && json_flight2.depTime && json_flight2.arrDate && json_flight2.arrTime) {
+                            txt1 += "<tr><td>"+json_data[i].stops+"</td><td>"+json_flight1.fid+"</td><td>"+json_flight1.airline+"</td><td>"+json_flight1.depDate+"</td><td>"+json_flight1.depTime+"</td><td>"+json_flight1.arrDate+"</td><td>"+json_flight1.arrTime+"</td><td>"+json_data[i].duration+"</td></tr>";
+                            txt1 += "<tr><td></td><td>"+json_flight2.fid+"</td><td>"+json_flight2.airline+"</td><td>"+json_flight2.depDate+"</td><td>"+json_flight2.depTime+"</td><td>"+json_flight2.arrDate+"</td><td>"+json_flight2.arrTime+"</td><td></td></tr>";
+                        }
+                    }
+                }
+                if (txt1 != ""){
+                    var tab1 = header+txt1;
+                    document.getElementById("table1").innerHTML = tab1;
+                    document.getElementById("table1").removeAttribute("class");
+                    document.getElementById("form1").style.display = "none";
+                }
+            }
+        }
+
+    }
+</script>
 </head>
 <body>
-<nav class="navbar navbar-default main-navbar navbar-custom navbar-white navbar-fixed-top" id="mynavbar-1">
+
+<!--<nav class="navbar navbar-default main-navbar navbar-custom navbar-white navbar-fixed-top" id="mynavbar-1">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" id="menu-button">
@@ -29,9 +110,9 @@
             </button>
             <!--  <div class="header-search hidden-lg">
                   <a href="javascript:void(0)" class="search-button"><span><i class="fa fa-search"></i></span></a>
-              </div> -->
+              </div>
             <a href="#" class="navbar-brand"><span><i class="fa fa-plane color-font"></i>Airlines </span>Reservation</a>
-        </div><!-- end navbar-header -->
+        </div><!-- end navbar-header
 
         <div class="collapse navbar-collapse" id="myNavbar1">
             <ul class="nav navbar-nav navbar-right navbar-search-link">
@@ -69,8 +150,8 @@
                 <li><a href="registration.html"><i class="fa fa-plus color-font"> </i></span> &nbsp; Sign Up</a></li>
                 <li></li>
             </ul>
-        </div><!-- end navbar collapse -->
-    </div><!-- end container -->
+        </div><!-- end navbar collapse
+    </div><!-- end container
 </nav><!-- end navbar -->
 
 <div class="back-img">
@@ -85,8 +166,10 @@
 
                     <div class="tab-content">
 
-                        <div id="flights" class="tab-pane in active">
-                            <form action="/rest/getFlights" method="get">
+                        <div id="flights" align="center" class="tab-pane in active">
+                            <table id="table1" class="hidden"></table>
+                            <form id="form1">
+
                                 <div class="row">
 
                                     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
@@ -97,7 +180,7 @@
 
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
-                                                        <input id="from" type="text" class="form-control" name="source" placeholder="from">
+                                                        <input id="source" type="text" class="form-control">
                                                     </div>
                                                 </div>
                                             </div><!-- end columns -->
@@ -108,7 +191,7 @@
 
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
-                                                            <input id="to" type="text" class="form-control" name="destination" placeholder="To">
+                                                            <input id="destination" type="text" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -117,7 +200,7 @@
                                         </div><!-- end row -->
                                     </div><!-- end columns -->
 
-                                    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                                    <!--<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                                         <div class="row">
 
                                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -127,7 +210,7 @@
                                                         <input id="calenderFrom" type="text" class="form-control" name="calenderFrom" placeholder="Choose Date">
                                                     </div>
                                                 </div>
-                                            </div><!-- end columns -->
+                                            </div><!-- end columns
 
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group left-icon">
@@ -138,10 +221,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div><!-- end columns -->
+                                            </div><!-- end columns
 
-                                        </div><!-- end row -->
-                                    </div><!-- end columns -->
+                                        </div><!-- end row
+                                    </div><!-- end columns
 
                                     <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
                                         <div class="form-group right-icon">
@@ -156,7 +239,7 @@
                                     </div><!-- end columns -->
 
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 search-btn">
-                                        <button class="btn btn-orange back-select-black" type="submit">Search</button>
+                                        <button type="button" class="btn btn-orange back-select-black" onclick="myfunction()">Search</button>
                                     </div><!-- end columns -->
                                 </div><!-- end row -->
                             </form>
