@@ -1,53 +1,273 @@
 <!DOCTYPE html>
-<HTML lang="en">
-    <head>
-        <title>Testing</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script>
-            var myJSON = [{ "name":"John", "age":31, "city":"New York" },
-                        { "name":"Dan", "age":25, "city":"San Jose" }];
+<html lang="en">
+<head>
+    <title> Airline Reservation  </title>
+    <link rel="stylesheet" href="css/stylesheet.css" />
+    <meta charset="utf-8">
+    <link rel="icon" href="Images/website-icon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i%7CMerriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+        .heading-tag
+        {
+            top:20%;
+            color:white;
 
-            $(document).ready(function() {
-                var table = $('<table class="table table-bordered table-striped"/>').appendTo($('#demo'));
-                $('<tr/>').appendTo(table)
-                        .append($('<th/>').text('Name'))
-                        .append($('<th/>').text('Age'))
-                        .append($('<th/>').text('City'));
-                $(myJSON).each(function(i, person) {
-                    $('<tr/>').appendTo(table)
-                        .append($('<td/>').text(person.name))
-                        .append($('<td/>').text(person.age))
-                        .append($('<td/>').text(person.city));
-                });
-            });
-            $(document).ready(function(){
-                $("#myBtn").click(function(){
-                    var source = $("#source").val();
-                    var destination = $("#destination").val();
-                    $.ajax({
-                        type: "POST",
-                        url: "/home/supriya/BEProject/FlightSearchTitanGraph/src/main/java/com/thinkaurelius/titan/webexample/TitanWebService.java",
-                        data: {"source": source, "destination": destination},
-                        success: function(msg){
-                            alert( "Data Saved: " + msg );
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        }
+        .back-img{
+            background-image:url('Images/flightMain.jpeg');
+            height:100%;
+
+        }
+
+        .back-white{
+            background-color:white;
+        }
+        .heading-home{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:white;
+
+
+        }
+        .side-icon-social{
+            position:fixed;
+            top:30%;
+            font-size:30px;
+            padding:10px 10px 10px 10px;
+            border-radius:15px 15px 15px 15px;
+            background-color:lightgoldenrodyellow;
+            left:10px;
+            color:red;
+        }
+        .side-icon-offer{
+            position:absolute;
+            bottom:20%;
+            right:5px;
+         }
+        .side-icon-social:hover{
+         color:red;
+         cursor:pointer;
+        }
+        .align-div{
+
+        }
+        .back-testinomial{
+            padding-top:8%;
+            height:100%;
+            background-image:url('Images/back-testi.jpg');
+            color:black;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+        }
+
+        table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top:100px;
+        }
+        th  {
+        background-color: #ffffaa;
+        }
+        td, th {
+        border: 1px solid #bbbbbb;
+        text-align: center;
+        padding: 8px;
+        }
+        tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+
+    </style>
+    <script >
+    function myfunction()
+    {
+
+         var source = getQueryVariable("source");
+         var destination =  getQueryVariable("destination");
+
+         function getQueryVariable(variable)
+         {
+          var query = window.location.search.substring(1);
+          var vars = query.split("&");
+          for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+          }
+          return(false);
+         }
+
+        //var server = "192.168.0.24";
+        var server = "localhost";
+        var port = "9091";
+        var params = "?source="+source+"&destination="+destination;
+        var url = "http://"+server+":"+port+"/rest/getFlights"+params;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                createTable(this.responseText);
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+
+    function createTable(data){
+        if (data){
+            var json_data = JSON.parse(data);
+            var len = json_data.length;
+            var txt1 = "";
+            var txt2 = "";
+            var header = "<thead><tr><th>No. of Stops</th><th>Flight ID</th><th>Airline</th><th>Departure Date</th><th>Departure Time</th><th>Arrival Date</th><th>Arrival Time</th><th>Duration</th></tr></thead>";
+            if (len > 0){
+                for(var i=0;i < len; i++){
+                    //console.log(JSON.stringify(json_data[i]));
+                    if(json_data[i].duration && json_data[i].stops == 0) {
+                         var json_flight = json_data[i].flight;
+                         if(json_flight.fid && json_flight.airline && json_flight.depDate && json_flight.depTime && json_flight.arrDate && json_flight.arrTime) {
+                            txt1 += "<tbody><tr><td>"+json_data[i].stops+"</td><td>"+json_flight.fid+"</td><td>"+json_flight.airline+"</td><td>"+json_flight.depDate+"</td><td>"+json_flight.depTime+"</td><td>"+json_flight.arrDate+"</td><td>"+json_flight.arrTime+"</td><td>"+json_data[i].duration+"</td></tr></tbody>";
                         }
-                    });
-                });
-            });
-        </script>
-    </head>
-    <body>
-        <div id="demo" class="col-md-3"></div>
-        <div id="demo2"></div>
-        <form id="myForm" method="get" action="/home/supriya/BEProject/FlightSearchTitanGraph/src/main/java/com/thinkaurelius/titan/webexample/TitanWebService.java/doPost">
-            Source : <input type="text" id="source">
-            Destination : <input type="text" id="destination">
-            <button id="myBtn" type="submit">Submit</button>
-        </form>
-    </body>
-</HTML>
+                    }
+                    if(json_data[i].duration && json_data[i].stops == 1) {
+                        var json_flight1 = json_data[i].flight1;
+                        var json_flight2 = json_data[i].flight2;
+                        if(json_flight1.fid && json_flight1.airline && json_flight1.depDate && json_flight1.depTime && json_flight1.arrDate && json_flight1.arrTime && json_flight2.fid && json_flight2.airline && json_flight2.depDate && json_flight2.depTime && json_flight2.arrDate && json_flight2.arrTime) {
+                            txt1 += "<tbody><tr><td>"+json_data[i].stops+"</td><td>"+json_flight1.fid+"</td><td>"+json_flight1.airline+"</td><td>"+json_flight1.depDate+"</td><td>"+json_flight1.depTime+"</td><td>"+json_flight1.arrDate+"</td><td>"+json_flight1.arrTime+"</td><td>"+json_data[i].duration+"</td></tr></tbody>";
+                            txt1 += "<tbody><tr><td></td><td>"+json_flight2.fid+"</td><td>"+json_flight2.airline+"</td><td>"+json_flight2.depDate+"</td><td>"+json_flight2.depTime+"</td><td>"+json_flight2.arrDate+"</td><td>"+json_flight2.arrTime+"</td><td></td></tr></tbody>";
+                        }
+                    }
+                }
+                if (txt1 != ""){
+                    var tab1 = header+txt1;
+                    document.getElementById("table1").innerHTML = tab1;
+                    document.getElementById("table1").removeAttribute("class");
+                    document.getElementById("form1").style.display = "none";
+                }
+            }
+        }
+
+    }
+    window.onload =myfunction();
+</script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default main-navbar navbar-custom navbar-white navbar-fixed-top" id="mynavbar-1">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" id="menu-button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--  <div class="header-search hidden-lg">
+                  <a href="javascript:void(0)" class="search-button"><span><i class="fa fa-search"></i></span></a>
+              </div> -->
+            <a href="#" class="navbar-brand"><span><i class="fa fa-plane color-font"></i>Airlines </span>Reservation</a>
+        </div><!-- end navbar-header -->
+
+        <div class="collapse navbar-collapse" id="myNavbar1">
+            <ul class="nav navbar-nav navbar-right navbar-search-link">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Home<span><i class="fa fa-angle-down"></i></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Main Homepage</a></li>
+
+                    </ul>
+                </li>
+                <!--
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Flight<span><i class="fa fa-angle-down"></i></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="flight-homepage.html">Flight Homepage</a></li>
+
+
+
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offer<span><i class="fa fa-angle-down"></i></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="hotel-homepage.html">Hotel</a></li>
+                        <li><a href="hotel-listing-left-sidebar.html">Flight</a></li>
+                        <li><a href="hotel-listing-right-sidebar.html">Cruize</a></li>
+                        <li><a href="hotel-grid-left-sidebar.html">Car</a></li>
+                        <li><a href="hotel-grid-right-sidebar.html">Holiday </a></li>
+
+                     </ul>
+                </li>
+
+                <li><a href="login.html">Contact Us </a></li>
+
+                <li><a href="login.html"><span><i class="fa fa-lock color-font"> </i></span> &nbsp; Login </a></li>
+                <li><a href="registration.html"><i class="fa fa-plus color-font"> </i></span> &nbsp; Sign Up</a></li>-->
+                <li></li>
+            </ul>
+        </div><!-- end navbar collapse -->
+    </div><!-- end container -->
+</nav><!-- end navbar -->
+<br>
+<br>
+<br>
+
+<div class="container">
+    <table id="table1" class="table hidden table-hover"></table>
+</div>
+</body>
+</html>

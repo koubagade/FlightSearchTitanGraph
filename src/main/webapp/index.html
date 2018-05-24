@@ -1,6 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿﻿﻿<html>
 <head>
     <title> Airline Reservation  </title>
     <link rel="stylesheet" href="css/stylesheet.css" />
@@ -12,37 +10,130 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i%7CMerriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+        .heading-tag
+        {
+            top:20%;
+            color:white;
+
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        }
         .back-img{
             background-image:url('Images/flightMain.jpeg');
             height:100%;
+
+        }
+
+        .back-white{
+            background-color:white;
+        }
+        .heading-home{
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color:white;
+
+
+        }
+        .side-icon-social{
+            position:fixed;
+            top:30%;
+            font-size:30px;
+            padding:10px 10px 10px 10px;
+            border-radius:15px 15px 15px 15px;
+            background-color:lightgoldenrodyellow;
+            left:10px;
+            color:red;
+        }
+        .side-icon-offer{
+            position:absolute;
+            bottom:20%;
+            right:5px;
+         }
+        .side-icon-social:hover{
+         color:red;
+         cursor:pointer;
+        }
+        .align-div{
+
+        }
+        .back-testinomial{
+            padding-top:8%;
+            height:100%;
+            background-image:url('Images/back-testi.jpg');
+            color:black;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+        }
+        table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 200px;
+        }
+        th  {
+        background-color: #ffffaa;
+        }
+        td, th {
+        border: 1px solid #bbbbbb;
+        text-align: center;
+        padding: 8px;
+        }
+        tr:nth-child(even) {
+        background-color: #dddddd;
         }
     </style>
-    <style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 200px;
-}
-
-th {
-    background-color: #ffffaa;
-}
-
-td, th {
-    border: 1px solid #bbbbbb;
-    text-align: center;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
+    <!--
     <script >
-    function myfunction() {
+    function myfunction()
+    {
         var source = document.getElementById("source").value;
         var destination = document.getElementById("destination").value;
         //var server = "192.168.0.24";
@@ -96,11 +187,11 @@ tr:nth-child(even) {
         }
 
     }
-</script>
+</script> -->
 </head>
 <body>
 
-<!--<nav class="navbar navbar-default main-navbar navbar-custom navbar-white navbar-fixed-top" id="mynavbar-1">
+<nav class="navbar navbar-default main-navbar navbar-custom navbar-white navbar-fixed-top" id="mynavbar-1">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" id="menu-button">
@@ -110,9 +201,9 @@ tr:nth-child(even) {
             </button>
             <!--  <div class="header-search hidden-lg">
                   <a href="javascript:void(0)" class="search-button"><span><i class="fa fa-search"></i></span></a>
-              </div>
+              </div> -->
             <a href="#" class="navbar-brand"><span><i class="fa fa-plane color-font"></i>Airlines </span>Reservation</a>
-        </div><!-- end navbar-header
+        </div><!-- end navbar-header -->
 
         <div class="collapse navbar-collapse" id="myNavbar1">
             <ul class="nav navbar-nav navbar-right navbar-search-link">
@@ -123,6 +214,7 @@ tr:nth-child(even) {
 
                     </ul>
                 </li>
+                <!--
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Flight<span><i class="fa fa-angle-down"></i></span></a>
                     <ul class="dropdown-menu">
@@ -141,22 +233,47 @@ tr:nth-child(even) {
                         <li><a href="hotel-grid-left-sidebar.html">Car</a></li>
                         <li><a href="hotel-grid-right-sidebar.html">Holiday </a></li>
 
-                    </ul>
+                     </ul>
                 </li>
 
                 <li><a href="login.html">Contact Us </a></li>
 
                 <li><a href="login.html"><span><i class="fa fa-lock color-font"> </i></span> &nbsp; Login </a></li>
-                <li><a href="registration.html"><i class="fa fa-plus color-font"> </i></span> &nbsp; Sign Up</a></li>
+                <li><a href="registration.html"><i class="fa fa-plus color-font"> </i></span> &nbsp; Sign Up</a></li>-->
                 <li></li>
             </ul>
-        </div><!-- end navbar collapse
-    </div><!-- end container
+        </div><!-- end navbar collapse -->
+    </div><!-- end container -->
 </nav><!-- end navbar -->
+<!--
 
+ <div class="side-icon-social hidden-xs hidden-sm">
+     <i class="fa fa-instagram"></i>
+     <br /><p></p>
+     <i class="fa fa-facebook"></i>
+     <br /><p></p>
+     <i class="fa fa-youtube"></i>
+     <br /><p></p>
+     <i class="fa fa-google-plus"></i>
+
+ </div>
+
+ -->
+<!--
+<div class="side-icon-offer ">
+    <img src="Images/special-offer-tag.png" style="width:190px;" />
+</div>
+-->
+<!-- End of Social tab-->
 <div class="back-img">
+
     <div class="search-tabs " id="search-tabs-1">
+
         <div class="container color-font">
+            <div class="heading-tag">
+                <div>
+                    <h1><center>JetSet</center></h1> </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
 
@@ -166,213 +283,215 @@ tr:nth-child(even) {
 
                     <div class="tab-content">
 
-                        <div id="flights" align="center" class="tab-pane in active">
+                        <div id="flights" class="tab-pane in active  back-white align-div">
                             <table id="table1" class="hidden"></table>
-                            <form id="form1">
-
+                            <form id="form1" action="display.html" method="GET">
                                 <div class="row">
-
+                                    <div class="col-sm-12 right">
+                                        <div class="radio">
+                                            <!--<label><input type="radio" name="One Way">Direct Flight</label> <label>  &nbsp;&nbsp;&nbsp;<input type="radio" name="One Way">Connected Flights</label>-->
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <br />
                                     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                                         <div class="row">
 
                                             <div class="col-xs-12 col-sm-6 col-md-6">
                                                 <div class="form-group left-icon">
+                                                    <form autocomplete="off" action="">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
+                                                            <div class="autocomplete">
+                                                                <input id="source" type="text" class="form-control" name="source" placeholder="from">
+                                                                <!-- <input id="source" type="text" class="form-control" name="From" placeholder="from"> -->
+                                                            </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div><!-- end columns -->
+
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                            <div class="form-group left-icon">
+                                                <div class="form-group left-icon">
 
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
-                                                        <input id="source" type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div><!-- end columns -->
+                                                        <div class="autocomplete">
+                                                            <input id="destination" type="text" class="form-control" name="destination" placeholder="To">
 
-                                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                                <div class="form-group left-icon">
-                                                    <div class="form-group left-icon">
-
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
-                                                            <input id="destination" type="text" class="form-control">
                                                         </div>
+                                                        <!-- <input id="to" type="text" class="form-control" name="to" placeholder="To"> -->
                                                     </div>
                                                 </div>
-                                            </div><!-- end columns -->
+                                            </div>
+                                        </div><!-- end columns -->
 
-                                        </div><!-- end row -->
-                                    </div><!-- end columns -->
+                                    </div><!-- end row -->
+                                </div><!-- end columns -->
 
-                                    <!--<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
-                                        <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="row">
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="col-sm-6">
+                                            <div class="form-group left-icon">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar color-font"></i></span>
+                                                    <input id="calenderFrom" type="date" class="form-control" name="calenderFrom" placeholder="Choose Date">
+                                                </div>
+                                            </div>
+                                        </div><!-- end columns -->
+                                        <!--
+                                        <div class="col-sm-6">
+                                            <div class="form-group left-icon">
                                                 <div class="form-group left-icon">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar color-font"></i></span>
-                                                        <input id="calenderFrom" type="text" class="form-control" name="calenderFrom" placeholder="Choose Date">
+                                                        <input id="calenderTo" type="date" class="form-control" name="calenderTo" placeholder="Choose Date">
                                                     </div>
                                                 </div>
-                                            </div><!-- end columns
+                                            </div>
+                                        </div> -->
 
-                                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                                <div class="form-group left-icon">
-                                                    <div class="form-group left-icon">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar color-font"></i></span>
-                                                            <input id="calenderTo" type="text" class="form-control" name="calenderTo" placeholder="Choose Date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div><!-- end columns
+                                    </div><!-- end row -->
+                                </div><!-- end columns -->
 
-                                        </div><!-- end row
-                                    </div><!-- end columns
+                                <!--  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                                      <div class="form-group right-icon">
+                                          <select class="form-control color-font">
+                                              <option selected>Adults</option>
+                                              <option>1</option>
+                                              <option>2</option>
+                                              <option>3</option>
+                                          </select>
 
-                                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-                                        <div class="form-group right-icon">
-                                            <select class="form-control color-font">
-                                                <option selected>Adults</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                            </select>
+                                      </div>
+                                  </div>
+                                  -->
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 search-btn">
+                                    <button type="submit" class="btn btn-orange back-select-black">Search</button>
+                                </div><!-- end columns -->
+                        </div><!-- end row -->
 
-                                        </div>
-                                    </div><!-- end columns -->
-
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 search-btn">
-                                        <button type="button" class="btn btn-orange back-select-black" onclick="myfunction()">Search</button>
-                                    </div><!-- end columns -->
-                                </div><!-- end row -->
-                            </form>
-                        </div><!-- end flights -->
-                    </div><!-- end tab-content -->
-                </div><!-- end columns -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end search-tabs -->
-</div>
-<div>
-
-</div>
-<section id="offers">
-    <section id="hotel-offers" class="section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="page-heading">
-                        <h2>Hotels Offers</h2>
-                        <hr class="heading-line" />
-                    </div><!-- end page-heading -->
-
-
-
-                    <div class="view-all text-center">
-                        <a href="#" class="btn btn-orange">View All</a>
-                    </div><!-- end view-all -->
-                </div><!-- end columns -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </section><!-- end hotel-offers -->
-
-</section>
-<section id="best-features" class="banner-padding black-features color-font back-select-black">
-    <div class="container ">
-        <div class="row">
-            <div class="col-sm-6 col-md-3">
-                <div class="b-feature-block">
-                    <span><i class="fa fa-dollar"></i></span>
-                    <h3>Best Price Guarantee</h3>
-                    <br />
-                    <p>Want to travel,then why worry about prices and others ? <p> We will provide best Price Gurantee </p> </p>
-                </div><!-- end b-feature-block -->
-            </div><!-- end columns -->
-
-            <div class="col-sm-6 col-md-3">
-                <div class="b-feature-block">
-                    <span><i class="fa fa-lock"></i></span>
-                    <h3>Safe and Secure</h3>
-                    <br />
-                    <p>Your Saftey is our responsibility <p>We will provide best Safe and secure journey</p></p>
-                </div><!-- end b-feature-block -->
-            </div><!-- end columns -->
-
-            <div class="col-sm-6 col-md-3">
-                <div class="b-feature-block">
-                    <span><i class="fa fa-thumbs-up"></i></span>
-                    <h3>Best Travel Agents</h3>
-                    <br />
-                    <p>You plan for new Journey Don't worry about best view, visit and much more? we Provide best travel agent <p> </p></p>
-                </div><!-- end b-feature-block -->
-            </div><!-- end columns -->
-
-            <div class="col-sm-6 col-md-3">
-                <div class="b-feature-block">
-                    <span><i class="fa fa-bars"></i></span>
-                    <h3>Travel Guidelines</h3>
-                    <br />
-                    <p>The biggest question anyone planning a holiday would ask themselves would be where would my dream vacation be ? <p>We Provide best Guidlines </p></p>
-                </div><!-- end b-feature-block -->
+                        <br />
+                        </form>
+                    </div><!-- end flights -->
+                </div><!-- end tab-content -->
             </div><!-- end columns -->
         </div><!-- end row -->
     </div><!-- end container -->
-</section><!-- end best-features -->
-<section id="testimonials" class="section-padding back-size">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-heading white-heading">
-                    <h2>Testimonials</h2>
-                    <hr class="heading-line" />
-                </div><!-- end page-heading -->
-
-                <div class="carousel slide" data-ride="carousel" id="quote-carousel">
-                    <div class="carousel-inner text-center">
-
-                        <div class="item active">
-                            <blockquote> </blockquote>
-                            <div class="rating">
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star lightgrey"></i></span>
-                            </div><!-- end rating -->
-
-                        </div><!-- end item -->
-
-                        <div class="item">
-                            <blockquote> </blockquote>
-                            <div class="rating">
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star lightgrey"></i></span>
-                            </div><!-- end rating -->
-
-
-                        </div><!-- end item -->
-
-                        <div class="item">
-                            <blockquote> </blockquote>
-                            <div class="rating">
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star orange"></i></span>
-                                <span><i class="fa fa-star lightgrey"></i></span>
-                            </div>
-
-
-                        </div><!-- end item -->
-
-                    </div><!-- end carousel-inner -->
+</div><!-- end search-tabs -->
+</div>
 
 
 
-                </div><!-- end quote-carousel -->
-            </div><!-- end columns -->
-        </div><!-- end row -->
-    </div><!-- end container -->
-</section><!-- end testimonials -->
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+          b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  /*execute a function when someone clicks in the document:*/
+  document.addEventListener("click", function (e) {
+      closeAllLists(e.target);
+      });
+}
+
+/*An array containing all the country names in the world:*/
+var countries = ["COLD BAY","FAIRBANKS","SHEYMA","TIRANA","ADRAR","ALGIERS","ANNABA","CONSTANTINE","EL GOLEA","GHARDAIA","HASSI MESSAOUD","IN SALAH","ORAN","TAMANRASSET","ZARAZAITINE","LUANDA","BUENOS AIRES","COMODORO RIVADAVIA","CORDOBA","MAR DE PLATA","ASCENSION","ADELAIDE","ALICE SPRINGS","AVALON","BRISBANE","CAIRNS","CANBERRA","COOLANGATTA","DARWIN","KARRATHA","KATHERINE","MEEKATHARRA","MELBOURNE","MOUNT ISA","NORFOLK ISLAND","PEARCE","PERTH","PORT HEDLAND","ROCKHAMPTON","SYDNEY","TOWNSVILLE","INNSBRUCK","KLAGENFURT","LINZ","SALZBURG","VIENNA","BAKU","LAJES","PONTA DELGARDO","SANTA MARIA","FREEPORT","NASSAU","BAHRAIN","CHITTAGONG","DHAKA TEZGAON","DHAKA INTL","BARBADOS","MINSK","ANTWERP","BRUSSELS","CHARLEROI","LIEGE","OSTEND","BELIZE","COTONOU","BERMUDA","FRANCISTOWN","GABORONE NOTWANE","GABORONE INTL","GHANZI","SELEBI-PHIKWE","BELO HORIZONTE","BRASILIA","CAMPINAS","FERNANDO DE NOROHNA","FLORIANPOLIS","MACEIO","NATAL","PORTO ALEGRE","RECIFE","RIO DE JANEIRO","SALVADOR","SAO JOSE DOS CAMPOS","SAO PAULO","BURGAS","SOFIA","VARNA","BOBO-DIOULASSO","OUAGADOUGOU","BUJUMBURA","PHNOM-PENH","DOUALA","GAROUA","YAOUNDE","ABBOTSFORD","BAGOTVILLE","CALGARY","CHURCHILL","EDMONTON","FREDERICTON","GANDER","GOOSE","HALIFAX","HALIFAX","HAMILTON","IQUALUIT","KUUJJUAG","MONCTON","MONT JOLI","MONTREAL DORVAL","MONTREAL MIRABEL","NORTH BAY","OTTAWA","QUEBEC","REGINA","SASSKATOON","SEPT ILES","ST. JOHNS","STEPHENVILLE","SYDNEY","THOMPSON","TORONTO","URANIUM CITY","VAL D'OR","VANCOUVER","WHITEHOUSE","WINDSOR","WINNIPEG","YARMOUTH","YELLOWKNIFE","FUERTEVENTURA","GRAN CANARIA","LA PALMA","LANZAROTE","TENERIFE NORTE","TENERIFE REINA SOFIA","SAL","GRAND CAYMAN","BAMGUI","CONCEPCION","PUNTA ARENAS","SANTIAGO","BEIJING","CHENGDU","GUANGZHOU/CANTON","KUNMING","LANZHOU","SHANGHAI","SHENZHEN","TAIYUAN","TIANJIN","URUMQI","XI'AN","BARRANQUILLA","BOGOTA","CALI","CARTEGENA","SAN ANDRES","DZAOUDZI","MORONI HAHAIA","MORONI ICONI","BRAZZAVILLE","POINTE NOIRE","DUBROVNIK","RIJEKA","SPLIT","ZADAR","ZAGREB","CAMAGUEY","CAYO LARGO DEL SUR","HAVANA","VARADERO","LARNACA","PAPHOS","PRAGUE","AALBORG","BILLUND","BORNHOLM","COPENHAGEN KASTRUP","COPENHAGEN ROSKILDE","ESBJERG","ODENSE","TIRSTRUP","DJIBOUTI","PUERTO PLATA","PUNTA CANA","SANTO DOMINGO","GUAYAQUIL","ALEXANDRIA","ASWAN","CAIRO","HURGHADA","LUXOR","PORT SAID","RAS EL NAKAB","RAS NASRANI","SAN SALVADOR","ADDIS ABABA","ASMARA","DIRE DAWA","HELSINKI MALMI","HELSINKI VANTAA","IVALO","MARIEHAMN","OULU","PORI","ROVANIEMI","TAMPERE","TURKU","ABBEVILLE","AGLEN","AJACCIO","ANGERS","BASLE","BASTIA","BERGERAC","BEUVAIS","BEZIERS","BIARRITZ/BAYONE","BORDEAUX","BREST","BRETIGNY-SUR-ORGE","CAEN","CAHORS","CALAIS-DUNKERQUE","CALVI","CAMBRAI","CANNES","CARCASSONNE","CHAMBERY","CHATEAUROUX","CHERBOURG","CLERMOUNT FERRAND","COLMAR","DEAUVILLE","DIEPPE","DIJON","DINARD","GRENOBLE","HYERES","LA ROCHELLE","LANNION","LE HAVRE","LE MANS","LE TOUQUET","LILLE","LIMOGES","LYON","MARSEILLE","METZ","MONTPELLIER","MORLAIX","NANCY","NANTES ATLANTIQUE","PARIS CHARLES DE GAULLE","PARIS LE BOURGET","PARIS ORLY","PAU PYRENEES","PERIGUEUX","PERPIGNAN","PONTOISE","QUIMPER","REIMS","RENNES","RODEZ","ROUEN","ST. BRIEUC","ST. ETTIENNE","ST. NAZAIRE","ST. YAN","STRASBOURG","TARBES","TOULOUSE BLAGNAC","TOULOUSE FRANCAZAL","TOURS","TOUSSUS LE NOBLE","TROYES","VALENCE","FRANCEVILLE","LIBREVILLE","PORT GENTIL","BANJUL","TBILISI","BERLIN GATOW","BERLIN SCHOENEFIELD","BERLIN TEGEL","BERLIN TEMPLEHOF","BRAUNSWEIG","BREMEN","COLOGNE-BONN","DORTMUND","DRESDEN","DUSSELDORF","ERFURT","FRANKFURT","FRIEDRICHSHAFEN","HAMBURG FINKENWERDER","HAMBURG","HANNOVER","INGOLSTADT","KASSEL-CALDEN","KIEL","LEIPZIG","LUBECK","MUNICH","MUNSTER","NORDHOLZ","NURNBERG","OBERPFAFFENHOFEN","PADERBORN","SAARBRUCKEN","STUTTGART","SYLT","ACCRA","KUMSAI","SUNYANI","TAKORADI","TAMALE","GIBRALTAR","ALEXANDROUPOLIS","ANDRAVIDA","ARAXOS","ATHENS","ELEFSIS","HERAKLION","IOANNINA","KARPATHOS","KAVALA","KEFALLINIA","KERKYRA","KHIOS","LIMNOS","MIKONOS","MITILINI","RHODES DIAGORAS","RHODES MARITSA","SALONIKA","SAMOS","SANTORINI","SKIATHOS","ZAKINTHOS","NARSARSUAQ","SONDERSTROM","GUATEMALA","BISSAU","CONAKRY","GEORGETOWN","HONOLULU","SAN PEDRO SULA","HONG KONG","BUDAPEST","AKUREYI","KEFLAVIK","REYKJAVIK","AHMEDABAD","BANGALORE","MUMBAI-BOMBAY","CALCUTTA","DELHI","GOA","HYDERABAD","LUCKNOW","MADRAS","NAGPUR","PORT BLAIR","TRIVANDRUM","AMBON","BALI","BIAK","JAKARTA HALIM PERDANAKUSUMA","JAKARTA INTL","KUPANG","MEDAN","SURABAYA","UJUNG PANDANG","SHIRAZ","TABRIZ","TEHRAN","BAGHDAD","CONNAUGHT","CORK","DONEGAL","DUBLIN","GALWAY","KERRY","SHANNON","WATERFORD","JERUSALEM","OVDA","TEL AVIV","ALGHERO","ANCONA","BARI","BERGAMO","BOLOGNA","BRINDISI","CAGLIARI","CATANIA","FLORENCE","FORLI","GENOA","LAMEZIA TERME","MILAN LINATE","MILAN MALPENSA","NAPLES","OLBIA","PALERMO","PARMA","PESCARA","PISA","ABIDJAN","YAMOUSSOUKRO","KINGSTON","MONTEGO BAY","CHITOSE","FUKUOKA","HAKODATE","IWAKUNI","KAGOSHIMA","NAGASAKI","NAGOYA","OSAKA ITAMI","OSAKA KANSAI","SENDAI","TOKYO HANEDA","TOKYO NARITA","TOKYO YOKOTA","KISUMU","MALINDI","MOMBASA","NAIROBI","RIGA","MASERU","MONROVIA INTL","MONROVIA SPRIGGS PAYNE","BENGHAZI","KUFRA","SEBHA","TRIPOLI","VILNIUS","LUXEMBOURG","ANTANANARIVO","MAHAJANGA","ST. DENNIS","TOAMASINA","FUNCHAL","PORTO SANTO","BLANTYRE","KARONGA","LILONGWE","MZUZU","ALOR SETAR","BRUNEI INTL.","JOHOR BAHRU","KOTA BHARU","KOTA KINBALU","KUALA LUMPUR","KUALA LUMPUR INTL.","LABUAN","MALE INTL.","MIRI","PENANG INTL.","SIBU","TAWAU","BAMAKO","MOPTI","NIORO","TOMBOUCTOU","LUQA","NOUADHIBOU","NOUAKCHOTT","PLAISANCE","ACAPULCO","CAMPECHE","CANCUN","CHETUMAL","COZUMEL","GUADALAJARA","IXTAPA-ZIHUATANEJO","MERIDA","MEXICO CITY","TAMPICO","AGADIR","AL HOCEIMA","CASABLANCA ANFA","CASABLANCA INTL","LAAYOUNE","MARRAKECH","OUARZAZATE","OUJDA","RABAT","TANGIER","TETOUAN","BEIRA","INHAMBANE","MAPUTO","NAMPULA","TETE","VILANKULU","KATHMANDU","AMSTERDAM","EELDE","EINDHOVEN","LELYSTAD","MAASTRICHT","ROTTERDAM","AUCKLAND","CHRISTCHURCH","WELLINGTON","AGADES","NIAMEY","ZINDER","CALABAR","ENUGU","IBADAN","ILORIN","JOS","KADUNA","KANO","LAGOS","MAIDUGURI","PORT HAIRCOURT","SOKOTO","YOLA","ALESUND","BERGEN","FLORO","HARSTAD NARVIK","HAUGESUND","KIRKENES","KRISTIANSAND KJEVIK","KRISTIANSAND KVERNBERGET","OSLO FORNEBU","OSLO GARDERMOEN","STAVANGER","TORP","TROMSO","MUSCAT","SALALAH","ISLAMABAD","KARACHI","LAHORE","NAWABSHAH","PORT MORESBY","MACTAN","MANILA INTL.","GDANSK","KRAKOW","POZNAN","WARSAW","FARO","LISBON","OPORTO","SAN JUAN","DOHA","BUCHAREST BANEASA","BUCHAREST OTOPENI","CONSTANTA","TIMISOARA","KHABARAOVSK","MOSCOW SHREMETIEVO","MOSCOW VNUKOVO","NOVOSIBIRSK","ORENBURG","SAMARA","ST. PETERSBURG","TVER","YAKUTSK","SAO TOME","ABHA","AL JOUF","ARAR","DHARAN","GASSIM","HAFR-AL-BATIN","HAIL","JEDDAH","MADINAH","RIYADH","TAIF","TURAIF","WEJH","DAKAR","SEYCHLLES","FREETOWN","SINGAPORE CHANGI","SINGAPORE PAYA LEBAR","BRATISLAVA","KOSICE","POPRAD","LJUBLJANA","MARIBOR","KISMAYU","MOGADISHU","BEAUFORT WEST","BETHLEHEM","BISHO","BLOEMFONTEIN","CAPE TOWN","DURBAN LOUIS BOTHA","DURBAN VIRGINIA","EAST LONDON","FICKSBURG","GEORGE","GIYANI","GRAHAMSTOWN","GRAND CENTRAL","GROOTFONTEIN","HEIDELBERG","HEILBRON","JOHANNESBURG INTL","JOHANNESBURG RAND","KEETMANSHOOP","KIGALI","KIMBERLEY","KLEINSEE","KOMATIPOORT","KROONSTAD","LADYSMITH","LANSERIA","LICHTENBURG","LUDERITZ","LYDENBURG","MALELANE","MARGATE","MESSINA","MMABATHO","NELSPRUIT","NEWCASTLE SA","OTJIWARONGO","PHALABORWA","PIET RETIEF","PIETERMARITZBURG","PIETERSBURG","PILANESBERG","PLETTENBERG BAY","PORT ELIZABETH","PRETORIA","QUEENSTOWN","RICHARDS BAY","SISHEN","THABA NCHU","ULUNDI","UPINGTON","VEREENIGING","VICTORIA WEST","VRYHEID","WELKOM","WINDHOEK EROS","WINDHOEK INTL","CHEJU","PUSAN","SEOUL","ALICANTE","ALMERIA","ASTURIAS","BARCELONA","BILBAO","CORDOBA","GERONA","GRANDA","IBIZA","JEREZ","LA CORUNA","MADRID BARAJAS","MADRID GETAFE","MALAGA","MINORCA","PALMA","PAMPLONA","REUS","SALAMANCA","SAN SEBASTIAN","SANTANDER","SANTIAGO","SEVILLE","VALENCIA","VIGO","VITORIA","COLOMBO INTL","COLOMBO RATMALANA","JAFFNA","GENEINA","JUBA","KHARTOUM","MATSAPHA","ANGELHOLM","BORLANGE","GOTHENBURG","JONKOPING","KALMAR","KARLSTAD","MALMO","MORA","NORKOPING","OREBRO","STOCKHOLM ARLANDA","STOCKHOLM BROMA","SUNDSVALL","UMEA","VISBY","BERNE","GENEVA","SION","ZURICH","DAMASCUS","KAOHSIUNG INTL.","TAIPEI INTL.","DAR ES SALAAM","KILIMANJARO","MTWARA","MWANZA","PEMBA","TABORA","TANGA","ZANZIBAR","N'DJAMENA","BANGKOK","CHIANG MAI","PHUKET","SONGKHLA","SURAT THANI","LOME","PORT OF SPAIN","SCARBOROUGH","JERBA","MONASTIR","SFAX","TOZEUR","TUNIS","ADANA","ANKARA","DALAMAN","ISTANBUL","IZMIR","ASHKHABAD","ENTEBBE","KIEV","LVOV","ODESSA","ABU DHABI","ABU DHABI","DUBAI","FUJAIRAH","RAS AL KHAIMAH","SHARJAH","ABERDEEN","ALDERNEY","ASCENSION IS.","BARROW","BEDFORD","BELFAST","BELFAST","BEMBRIDGE","BENBECULA","BIGGIN HILL","BIRMINGHAM UK","BLACKBUSHE","BLACKPOOL","BOURNEMOUTH","BRISTOL","CAMBRIDGE","CARDIFF","CARLISLE","COVENTRY","CRANFIELD","DUNDEE","EAST MIDLANDS","EDINBURGH","EXETER","GLASGOW","GLOUCESTERSHIRE","GUERNSEY","HUMBERSIDE","INVERNESS","ISLAY","ISLE OF MAN","JERSEY","KIRKWALL","LEEDS BRADFORD","LIVERPOOL","LONDON CITY","LONDON GATWICK","LONDON HEATHROW","LONDON STANSTED","LUTON","LYDD","MANCHESTER","MANSTON","NEWCASTLE","OXFORD","PLYMOUTH","PRESTWICK","SOUTHAMPTOM","SOUTHEND","STORNOWAY","SUMBURGH","SWANSEA","TEESIDE","TIREE","UNST","WICK","ALBUQUERQUE","ATLANTA","ATLANTIC CITY","BALTIMORE","BANGOR","BEDFORD","BIRMINGHAM US","BOSTON","BUFFALO","BURLINGTON","CASPER","CENTRAL FLORIDA REGIONAL","CHARLESTON","CHARLOTTE","CHATTANOOGA","CHEYENNE","CHICAGO","CINCINNATI","CLEARWATER","CLEVELAND","COLARADO SPRINGS","COLUMBIA","COLUMBUS","DALLAS","DALLAS","DENVER","DES MOINES","DETROIT WAYNE","DETROIT WILLOW RUN","DULUTH","EVERETT","FARGO","FORT LAUDERDALE","FRESNO","GRAND JUNCTION","GREAT FALLS","HOUSTON","HUNTSVILLE","INDIANAPOLIS","JACKSONVILLE","KANSAS CITY INTL","KNOXVILLE","LAS VEGAS","LONG BEACH","LOS ANGELES","LOUISVILLE","MEMPHIS INTL","MIAMI","MILWAUKEE","MINNEAPOLIS","MONTGOMERY","MOSES LAKE","NASHVILLE","NEW ORLEANS","NEW YORK JOHN F. KENNEDY","NEW YORK LA GUARDIA","NEWARK","NEWBURGH","NEWPORT NEWS","NIAGARA FALLS","NORFOLK","OAKLAND","OMAHA","ONTARIO","ORLANDO","PHILADELPHIA","PHOENIX","PITTSBURGH","PORTLAND","PORTLAND","PRESSQUE ISLE","PUEBLO MEMORIAL","RENO","RICHMOND","SACRAMENTO","SALT LAKE CITY","SAN ANTONIO","SAN DIEGO","SAN FRANCISCO","SAVANNAH","SEATTLE","SEATTLE BOEING FIELD","SIOUX FALLS","SPOKANE INTL","ST. LOUIS","SYRACUSE","TAMPA","WASHINGTON DULLES","WASHINGTON NATIONAL","WEST PALM BEACH","WILMINGTON","WINDSOR LOCKS","MONTEVIDEO","SAMARKAND","TASHKENT","CARACAS","MARACAIBO","MARGARITA","DANANG","HANOI","HOCHIMINH","ST. LUCIA","ADEN","HODEIDAH","SANAA","TAIZ","BELGRADE","MOSTAR","OHRID","PODGORICA","SARAJEVO","SKOPJE","TIVAT","KINSHASA","KISANGANI","LUBUMBASHI","MBUJI-MAYI","KASAMA","LIVINGSTONE","LUSAKA","MANSA","MONGU ","N'DOLA","BULAWAYO","CHIREDZI","HARARE","HARARE","HWANGE","KARIBA","MASVINGO","VICTORIA FALLS"];
+
+/*initiate the autocomplete function on the "from" element, and pass along the countries array as possible autocomplete values:*/
+autocomplete(document.getElementById("source"), countries);
+autocomplete(document.getElementById("destination"),countries);
+
+</script>
+
 </body>
 </html>
