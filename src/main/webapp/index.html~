@@ -1,6 +1,6 @@
-﻿﻿﻿<html>
+﻿﻿﻿﻿<html>
 <head>
-    <title> Airline Reservation  </title>
+    <title> JetSet Flight Scanner  </title>
     <link rel="stylesheet" href="css/stylesheet.css" />
     <meta charset="utf-8">
     <link rel="icon" href="Images/website-icon.png" type="image/x-icon" />
@@ -208,7 +208,7 @@ input[type=submit] {
             <!--  <div class="header-search hidden-lg">
                   <a href="javascript:void(0)" class="search-button"><span><i class="fa fa-search"></i></span></a>
               </div> -->
-            <a href="#" class="navbar-brand"><span><i class="fa fa-plane color-font"></i>JetSet</span> Airlines</a>
+            <a href="#" class="navbar-brand"><span><i class="fa fa-plane color-font"></i>JetSet </span>Flight Scanner</a>
         </div><!-- end navbar-header -->
 
         <div class="collapse navbar-collapse" id="myNavbar1">
@@ -278,7 +278,7 @@ input[type=submit] {
         <div class="container color-font">
             <div class="heading-tag">
                 <div>
-                    <h1><center>JetSet</center></h1> </div>
+                    <h1><center>JetSet Flight Scanner</center></h1> </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
@@ -309,7 +309,7 @@ input[type=submit] {
                                                         From
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
-                                                            
+
                                                             <div class="autocomplete">
                                                                 <input id="source" autocomplete="off" type="text" maxlength="20" class="form-control" name="source" placeholder="from">
                                                                 <!-- <input id="source" type="text" class="form-control" name="From" placeholder="from"> -->
@@ -323,7 +323,7 @@ input[type=submit] {
                                         <div class="col-sm-6">
                                             <div class="form-group left-icon">
                                                 <div class="form-group left-icon">
-                                                   To
+                                                    To
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker color-font"></i></span>
                                                         <div class="autocomplete">
@@ -341,7 +341,7 @@ input[type=submit] {
 
                                 <div class="col-sm-6">
                                     <div class="row">
-                                        
+
                                         <div class="col-sm-6">
                                             <div class="form-group left-icon">
                                                 Date
@@ -362,11 +362,11 @@ input[type=submit] {
                                                 </div>
                                             </div>
                                         </div> -->
-                                         <br>
-                                         
-                                         <div class="search-btn">
-                                    <button type="submit" class="btn back-button-color">Search</button>
-                                </div>
+                                        <br>
+
+                                        <div class="search-btn">
+                                            <button type="submit" class="btn back-button-color">Search</button>
+                                        </div>
                                     </div><!-- end row -->
                                 </div><!-- end columns -->
 
@@ -382,7 +382,7 @@ input[type=submit] {
                                       </div>
                                   </div>
                                   -->
-                                 
+
                         </div><!-- end row -->
 
                         <br />
